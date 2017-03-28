@@ -12,8 +12,8 @@ public class GeneratorView implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     Landing landing;
     Wizard wizard;
-    final static String BUTTONPANEL = "Card with JButtons";
-    final static String TEXTPANEL = "Card with JTextField";
+    final static String LANDING = "landing";
+    final static String WIZARD = "wizard";
     static GeneratorControllerInterface gci;
     GeneratorModelInterface gmi;
     
@@ -24,13 +24,7 @@ public class GeneratorView implements ItemListener {
     }
      
     public void addComponentToPane(Container pane) {
-        //Put the JComboBox in a JPanel to get a nicer look.
-        JPanel comboBoxPane = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = { BUTTONPANEL, TEXTPANEL };
-        JComboBox cb = new JComboBox(comboBoxItems);
-        cb.setEditable(false);
-        cb.addItemListener(this);
-        comboBoxPane.add(cb);
+
 //         
         landing = new Landing(gci);
         wizard = new Wizard(gci);
@@ -38,10 +32,9 @@ public class GeneratorView implements ItemListener {
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(landing, BUTTONPANEL);
-        cards.add(wizard, TEXTPANEL);
+        cards.add(landing, LANDING);
+        cards.add(wizard, WIZARD);
          
-        pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
         
     }
