@@ -273,10 +273,11 @@ public class Landing extends javax.swing.JPanel {
     }
     
     private void LandingPanelOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LandingPanelOkActionPerformed
-               
+
         JPanel cards = (JPanel) getParent();
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.next(cards);
+        gci.loadExcelTable(gci.getExcelPath());
     }//GEN-LAST:event_LandingPanelOkActionPerformed
 
     private void excelPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelPanelButtonActionPerformed
