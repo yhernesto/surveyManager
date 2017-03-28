@@ -6,7 +6,10 @@
 package layout;
 
 import Panels.Numericas;
+import Panels.testPanel;
+import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,12 +20,13 @@ public class Wizard extends javax.swing.JPanel {
     /**
      * Creates new form Wizard
      */
-    GeneratorControllerInterface gti;
+    GeneratorControllerInterface gci;
+    Numericas numericas;
     
     public Wizard(){};
     
-    public Wizard(GeneratorControllerInterface gti) {
-        this.gti = gti;
+    public Wizard(GeneratorControllerInterface gci) {
+        this.gci = gci;
         initComponents();
         myInit();
     }
@@ -242,33 +246,33 @@ public class Wizard extends javax.swing.JPanel {
     
     private void Tab1_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab1_cancelActionPerformed
         // TODO add your handling code here:
-       gti.previousButton((JButton) evt.getSource(), TabbedPane);
+       gci.previousButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab1_cancelActionPerformed
 
     private void Tab2_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_nextActionPerformed
         // TODO add your handling code here:
-        int n = Integer.parseInt(getTextField2());
-        gti.nextButton((JButton) evt.getSource(), TabbedPane);
+        
+        gci.nextButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab2_nextActionPerformed
 
     private void Tab2_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_cancelActionPerformed
         // TODO add your handling code here:
-        gti.previousButton((JButton) evt.getSource(), TabbedPane);
+        gci.previousButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab2_cancelActionPerformed
 
     private void Tab3_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab3_nextActionPerformed
         // TODO add your handling code here:
-        gti.nextButton((JButton) evt.getSource(), TabbedPane);
+        gci.nextButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab3_nextActionPerformed
 
     private void Tab3_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab3_cancelActionPerformed
         // TODO add your handling code here:
-        gti.previousButton((JButton) evt.getSource(), TabbedPane);
+        gci.previousButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab3_cancelActionPerformed
 
     private void Tab1_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab1_nextActionPerformed
         // TODO add your handling code here:
-        gti.nextButton((JButton) evt.getSource(), TabbedPane);
+        gci.nextButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab1_nextActionPerformed
     
     private String getTextField2(){
@@ -277,6 +281,10 @@ public class Wizard extends javax.swing.JPanel {
     
     private void myInit(){
         System.out.println("inicio del wizzard");
+        numericas   = new Numericas(gci);
+//        numericas.loadExcel(gci.getExcelPath());
+        jPanel1.setLayout(new BorderLayout());
+        jPanel1.add(numericas,BorderLayout.NORTH); 
     }
     
     
