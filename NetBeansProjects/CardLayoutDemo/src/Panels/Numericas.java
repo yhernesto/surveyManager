@@ -42,21 +42,12 @@ public class Numericas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        excelTable = new javax.swing.JTable();
         scrollPane = new javax.swing.JScrollPane();
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
-
-        excelTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(excelTable);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        excelTable = new javax.swing.JTable();
 
         addButton.setText("+");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,41 +66,54 @@ public class Numericas extends javax.swing.JPanel {
             }
         });
 
+        excelTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(excelTable);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane)
+                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(removeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                            .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPane)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addButton)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 108, Short.MAX_VALUE)))
+                        .addGap(0, 41, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        gci.numericButtonAdd();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
@@ -120,29 +124,30 @@ public class Numericas extends javax.swing.JPanel {
     private javax.swing.JButton addButton;
     private javax.swing.JTable excelTable;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton removeButton;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
-    private Table questionTable;
-    private ModelTable questionModelTable;
+    public Table questionTable;
+    public ModelTable questionTableModel;
     private GeneratorControllerInterface gci;
-    private GeneratorModelInterface gmi;
+//    private GeneratorControllerInterface gci;
+//    private GeneratorModelInterface gmi;
 
     /**
      * Creates new form Numerica
      * 
      */
-    public Numericas() {
+    public Numericas(GeneratorControllerInterface gci) {
         initComponents();
-        myInitComponentes();
+        myInitComponentes(gci);
     }
 
-    private void myInitComponentes() {
-//        gmi = new GeneratorModelInterface();
-        
-        questionModelTable   =   new ModelTable();
-        questionModelTable.mustNotBeEmpty(true);
-        questionModelTable.setMaxRows(10);
+    private void myInitComponentes(GeneratorControllerInterface gci) {
+        this.gci = gci;
+        questionTableModel   =   new ModelTable();
+        questionTableModel.mustNotBeEmpty(true);
+        questionTableModel.setMaxRows(10);
         
         /*de la nueva tabla */
         excelTable  = new JTable();
@@ -153,26 +158,30 @@ public class Numericas extends javax.swing.JPanel {
                 excelTable1MouseClicked(evt);
             }
         });
+
+    }
+    
+    public void loadExcel(String excelPath){
         NonEditableModel model = new NonEditableModel();
         excelTable.setModel(model);
-        excelTable = loadExcelTable(excelTable, gmi.getExcelPath());
+        excelTable = excelTableLoad(excelTable, excelPath);
+        jScrollPane2.setViewportView(excelTable);
         
-        jScrollPane1.setViewportView(excelTable);
+        //******** tabla de preguntas *************
+        //Inicialmente solo crea una fila de preguntas
+        questionTableModel.addRowTable(questionsTableAddRow(1));
+        //antes era: questionModelTable.getTotalRows() pero da NULL POINTER
         
-        /**************** QUESTION TABLE ******************/
-
-        questionModelTable.addRowTable(createRowTable(questionModelTable.getTotalRows()));
-        
-        questionTable    =  new Table(questionModelTable);
+        questionTable    =  new Table(questionTableModel);
         questionTable.setLayout(new GridBagLayout());        
-        questionTable.updateTable(questionModelTable);
+        questionTable.updateTable(questionTableModel);
         
         scrollPane.add(questionTable);
         scrollPane.setViewportView(questionTable);
-       /***************************************************/
+        
     }
     
-    public JTable loadExcelTable(JTable excelTable, String path) {
+    public JTable excelTableLoad(JTable excelTable, String path) {
         
             excelTable.setFocusable(false);
             excelTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -220,8 +229,8 @@ public class Numericas extends javax.swing.JPanel {
         };
     }
     
-    private RowTable createRowTable(int tableSize){
-        JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize) + ":");
+    public RowTable questionsTableAddRow(int tableSize){
+        JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize + 1) + ":");
         JTextField question = new JTextField();
         question.setColumns(20);
         
@@ -229,6 +238,7 @@ public class Numericas extends javax.swing.JPanel {
         row.addComponent(questionNumber);
         row.addComponent(question);
         
+        System.out.println(questionNumber.getText());
         return row;
     }
 }
