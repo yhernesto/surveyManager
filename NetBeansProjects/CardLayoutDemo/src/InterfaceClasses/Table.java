@@ -38,9 +38,7 @@ public class Table extends JPanel{
     
     public void updateTable(ModelTable logicTable){
         this.removeAll();
-        this.revalidate();
-        this.repaint();
-        
+
         if(logicTable != null){
             System.out.println("la tabla lógica no es null");
             this.logicTable = logicTable;
@@ -52,6 +50,8 @@ public class Table extends JPanel{
                 }    
             }
         }
+        this.revalidate();
+        this.repaint();
     }
     
 }
