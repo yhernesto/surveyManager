@@ -62,7 +62,16 @@ public class GeneratorController implements GeneratorControllerInterface{
         return gmi.getExcelPath();
     }
     
+    public void loadExcelTable(String excelPath){
+        //  comentado mientras debugeamos porque no se un panel dentro de otro
+        generatorView.wizard.numericas.loadExcel(excelPath);
+    }
     
-    
+    public void numericButtonAdd(){
+        generatorView.wizard.numericas.questionTableModel.addRowTable(
+        generatorView.wizard.numericas.questionsTableAddRow(generatorView.wizard.numericas.questionTableModel.getTotalRows())
+        );
+        generatorView.wizard.numericas.questionTable.updateTable(generatorView.wizard.numericas.questionTableModel);
+    }
 
 }
