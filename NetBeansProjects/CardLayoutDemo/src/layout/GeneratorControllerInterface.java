@@ -20,4 +20,7 @@ public interface GeneratorControllerInterface {
     void setExcelPath(String excelPath);
     void setCsvPath(String csvPath);
     void setReportPath(String reportPath);
+    String getExcelPath();
+    void loadExcelTable(String excelPath);
+    public void numericButtonAdd();
 }
