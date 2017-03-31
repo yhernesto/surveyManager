@@ -5,11 +5,9 @@
  */
 package layout;
 
-import Panels.Numericas;
-import Panels.testPanel;
+import Panels.Questions;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
  *
@@ -20,8 +18,9 @@ public class Wizard extends javax.swing.JPanel {
     /**
      * Creates new form Wizard
      */
-    GeneratorControllerInterface gci;
-    Numericas numericas;
+    private GeneratorControllerInterface gci;
+    static Questions numericas;
+    static Questions texto;
     
     public Wizard(){};
     
@@ -44,17 +43,18 @@ public class Wizard extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         TabbedPane = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        wizard_tab1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         Tab1_next = new javax.swing.JButton();
         Tab1_cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        wizard_tab1Panel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         Tab2_next = new javax.swing.JButton();
         Tab2_cancel = new javax.swing.JButton();
-        txfield2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        wizard_tab2Panel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -66,6 +66,8 @@ public class Wizard extends javax.swing.JPanel {
         jButton2.setText("jButton2");
 
         jTextField1.setText("jTextField1");
+
+        wizard_tab1.setName(""); // NOI18N
 
         Tab1_next.setText("next");
         Tab1_next.addActionListener(new java.awt.event.ActionListener() {
@@ -83,40 +85,53 @@ public class Wizard extends javax.swing.JPanel {
 
         jLabel1.setText("Preguntas númericas:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout wizard_tab1PanelLayout = new javax.swing.GroupLayout(wizard_tab1Panel);
+        wizard_tab1Panel.setLayout(wizard_tab1PanelLayout);
+        wizard_tab1PanelLayout.setHorizontalGroup(
+            wizard_tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 422, Short.MAX_VALUE)
+        );
+        wizard_tab1PanelLayout.setVerticalGroup(
+            wizard_tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 303, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout wizard_tab1Layout = new javax.swing.GroupLayout(wizard_tab1);
+        wizard_tab1.setLayout(wizard_tab1Layout);
+        wizard_tab1Layout.setHorizontalGroup(
+            wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(wizard_tab1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wizard_tab1Layout.createSequentialGroup()
                         .addGap(0, 269, Short.MAX_VALUE)
                         .addComponent(Tab1_cancel)
                         .addGap(27, 27, 27)
                         .addComponent(Tab1_next))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                    .addGroup(wizard_tab1Layout.createSequentialGroup()
+                        .addGroup(wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(wizard_tab1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        wizard_tab1Layout.setVerticalGroup(
+            wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(wizard_tab1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wizard_tab1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tab1_next)
                     .addComponent(Tab1_cancel)))
         );
 
-        TabbedPane.addTab("tab1", jPanel1);
-
-        jLabel2.setText("jLabel2");
+        TabbedPane.addTab("tab1", wizard_tab1);
 
         Tab2_next.setText("next");
         Tab2_next.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +147,18 @@ public class Wizard extends javax.swing.JPanel {
             }
         });
 
-        txfield2.setText("jTextField2");
+        jLabel4.setText("Preguntas de texto");
+
+        javax.swing.GroupLayout wizard_tab2PanelLayout = new javax.swing.GroupLayout(wizard_tab2Panel);
+        wizard_tab2Panel.setLayout(wizard_tab2PanelLayout);
+        wizard_tab2PanelLayout.setHorizontalGroup(
+            wizard_tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 411, Short.MAX_VALUE)
+        );
+        wizard_tab2PanelLayout.setVerticalGroup(
+            wizard_tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 297, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -140,30 +166,30 @@ public class Wizard extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(290, Short.MAX_VALUE)
+                        .addComponent(Tab2_cancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Tab2_next))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
-                                .addComponent(txfield2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tab2_cancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Tab2_next)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(wizard_tab2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txfield2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wizard_tab2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,17 +275,6 @@ public class Wizard extends javax.swing.JPanel {
        gci.previousButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab1_cancelActionPerformed
 
-    private void Tab2_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_nextActionPerformed
-        // TODO add your handling code here:
-        
-        gci.nextButton((JButton) evt.getSource(), TabbedPane);
-    }//GEN-LAST:event_Tab2_nextActionPerformed
-
-    private void Tab2_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_cancelActionPerformed
-        // TODO add your handling code here:
-        gci.previousButton((JButton) evt.getSource(), TabbedPane);
-    }//GEN-LAST:event_Tab2_cancelActionPerformed
-
     private void Tab3_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab3_nextActionPerformed
         // TODO add your handling code here:
         gci.nextButton((JButton) evt.getSource(), TabbedPane);
@@ -274,17 +289,29 @@ public class Wizard extends javax.swing.JPanel {
         // TODO add your handling code here:
         gci.nextButton((JButton) evt.getSource(), TabbedPane);
     }//GEN-LAST:event_Tab1_nextActionPerformed
+
+    private void Tab2_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_cancelActionPerformed
+        // TODO add your handling code here:
+        gci.previousButton((JButton) evt.getSource(), TabbedPane);
+    }//GEN-LAST:event_Tab2_cancelActionPerformed
+
+    private void Tab2_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_nextActionPerformed
+        // TODO add your handling code here:
+
+        gci.nextButton((JButton) evt.getSource(), TabbedPane);
+    }//GEN-LAST:event_Tab2_nextActionPerformed
     
-    private String getTextField2(){
-        return txfield2.getText();
-    };
+    
     
     private void myInit(){
         System.out.println("inicio del wizzard");
-        numericas   = new Numericas(gci);
+        numericas   = new Questions(gci);
+        texto   = new Questions(gci);
 //        numericas.loadExcel(gci.getExcelPath());
-        jPanel1.setLayout(new BorderLayout());
-        jPanel1.add(numericas,BorderLayout.NORTH); 
+        wizard_tab1Panel.setLayout(new BorderLayout());
+        wizard_tab1Panel.add(numericas,BorderLayout.NORTH); 
+        wizard_tab2Panel.setLayout(new BorderLayout());
+        wizard_tab2Panel.add(texto,BorderLayout.NORTH); 
     }
     
     
@@ -292,7 +319,7 @@ public class Wizard extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Tab1_cancel;
     private javax.swing.JButton Tab1_next;
-    public javax.swing.JButton Tab2_cancel;
+    private javax.swing.JButton Tab2_cancel;
     private javax.swing.JButton Tab2_next;
     private javax.swing.JButton Tab3_cancel;
     private javax.swing.JButton Tab3_next;
@@ -300,15 +327,16 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField txfield2;
+    private javax.swing.JPanel wizard_tab1;
+    private javax.swing.JPanel wizard_tab1Panel;
+    private javax.swing.JPanel wizard_tab2Panel;
     // End of variables declaration//GEN-END:variables
 }
