@@ -13,7 +13,7 @@ import java.util.List;
  * @author ernesto
  */
 public class ModelTable {
-    List<RowTable> rows;
+    List<RowTable> rows = new ArrayList<RowTable>();
     int maxRows;
     boolean mustNotBeEmpty = false;
     
