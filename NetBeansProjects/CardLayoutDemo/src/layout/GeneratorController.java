@@ -67,11 +67,15 @@ public class GeneratorController implements GeneratorControllerInterface{
         generatorView.wizard.numericas.loadExcel(excelPath);
     }
     
-    public void numericButtonAdd(){
+    public void numeric_buttonAdd(){
         generatorView.wizard.numericas.questionTableModel.addRowTable(
-        generatorView.wizard.numericas.questionsTableAddRow(generatorView.wizard.numericas.questionTableModel.getTotalRows())
+            generatorView.wizard.numericas.questionsTableAddRow(generatorView.wizard.numericas.questionTableModel.getTotalRows())
         );
         generatorView.wizard.numericas.questionTable.updateTable(generatorView.wizard.numericas.questionTableModel);
     }
 
+    public void numeric_buttonRemove(){
+        generatorView.wizard.numericas.questionTableModel.removeLastRowTable();
+        generatorView.wizard.numericas.questionTable.updateTable(generatorView.wizard.numericas.questionTableModel);
+    };
 }
