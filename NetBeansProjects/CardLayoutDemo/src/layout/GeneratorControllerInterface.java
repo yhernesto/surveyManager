@@ -5,6 +5,9 @@
  */
 package layout;
 
+import InterfaceClasses.ModelTable;
+import InterfaceClasses.RowTable;
+import InterfaceClasses.Table;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -22,7 +25,7 @@ public interface GeneratorControllerInterface {
     void setReportPath(String reportPath);
     String getExcelPath();
     void loadExcelTable(String excelPath);
-    public void numeric_buttonAdd();
-    public void numeric_buttonRemove();
+    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel, RowTable newRow);
+    public void question_buttonRemove(Table questionTable,ModelTable questionTableModel);
 
 }

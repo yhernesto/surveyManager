@@ -5,6 +5,9 @@
  */
 package layout;
 
+import InterfaceClasses.ModelTable;
+import InterfaceClasses.RowTable;
+import InterfaceClasses.Table;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -65,17 +68,16 @@ public class GeneratorController implements GeneratorControllerInterface{
     public void loadExcelTable(String excelPath){
         //  comentado mientras debugeamos porque no se un panel dentro de otro
         generatorView.wizard.numericas.loadExcel(excelPath);
+        generatorView.wizard.texto.loadExcel(excelPath);
     }
     
-    public void numeric_buttonAdd(){
-        generatorView.wizard.numericas.questionTableModel.addRowTable(
-            generatorView.wizard.numericas.questionsTableAddRow(generatorView.wizard.numericas.questionTableModel.getTotalRows())
-        );
-        generatorView.wizard.numericas.questionTable.updateTable(generatorView.wizard.numericas.questionTableModel);
+    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel, RowTable newRow){
+        questionTableModel.addRowTable(newRow);
+        questionTable.updateTable(questionTableModel);
     }
 
-    public void numeric_buttonRemove(){
-        generatorView.wizard.numericas.questionTableModel.removeLastRowTable();
-        generatorView.wizard.numericas.questionTable.updateTable(generatorView.wizard.numericas.questionTableModel);
+    public void question_buttonRemove(Table questionTable, ModelTable questionTableModel){
+        questionTableModel.removeLastRowTable();
+        questionTable.updateTable(questionTableModel);
     };
 }

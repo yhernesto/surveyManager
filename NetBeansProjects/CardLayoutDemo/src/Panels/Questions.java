@@ -30,7 +30,7 @@ import layout.GeneratorModelInterface;
  *
  * @author ernesto
  */
-public class Numericas extends javax.swing.JPanel {
+public class Questions extends javax.swing.JPanel {
 
 
     /**
@@ -113,11 +113,11 @@ public class Numericas extends javax.swing.JPanel {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
-        gci.numericButtonAdd();
+        gci.questions_buttonAdd(questionTable, questionTableModel, questionsTableAddRow(questionTableModel.getTotalRows()));
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        // TODO add your handling code here:
+        gci.question_buttonRemove(questionTable, questionTableModel);
     }//GEN-LAST:event_removeButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -128,17 +128,17 @@ public class Numericas extends javax.swing.JPanel {
     private javax.swing.JButton removeButton;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
-    public Table questionTable;
-    public ModelTable questionTableModel;
+    public  Table questionTable;
+    public  ModelTable questionTableModel;
     private GeneratorControllerInterface gci;
+    private int excelTable_MAX_ROWS_TO_SHOW = 10;
+    private int questionTable_TEXTFIELD_WIDTH = 20;
+    
 //    private GeneratorControllerInterface gci;
 //    private GeneratorModelInterface gmi;
 
-    /**
-     * Creates new form Numerica
-     * 
-     */
-    public Numericas(GeneratorControllerInterface gci) {
+
+    public Questions(GeneratorControllerInterface gci) {
         initComponents();
         myInitComponentes(gci);
     }
@@ -169,7 +169,7 @@ public class Numericas extends javax.swing.JPanel {
         
         //******** tabla de preguntas *************
         //Inicialmente solo crea una fila de preguntas
-        questionTableModel.addRowTable(questionsTableAddRow(1));
+        questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
         //antes era: questionModelTable.getTotalRows() pero da NULL POINTER
         
         questionTable    =  new Table(questionTableModel);
@@ -196,7 +196,7 @@ public class Numericas extends javax.swing.JPanel {
             int rows       = hoja.getRows();            
             String  data    = null;
             
-            if(rows >= 10) rows = 10;       //If the excel has more than 10 rows then we show 10 rows 
+            if(rows >= excelTable_MAX_ROWS_TO_SHOW) rows = excelTable_MAX_ROWS_TO_SHOW;       //If the excel has more than 10 rows then we show 10 rows 
             
             for(int i=0; i < columns; i++){
                 model.addColumn(getColumnReference(i));
@@ -204,7 +204,7 @@ public class Numericas extends javax.swing.JPanel {
             
             for(int f = 0; f < rows; f++){
                 model.addRow(new Object[0]);
-                for(int c = 0; c < 10; c++){
+                for(int c = 0; c < excelTable_MAX_ROWS_TO_SHOW; c++){
                     data   = hoja.getCell(c,f).getContents();
                     model.setValueAt(data, f, c);
                 };
@@ -212,9 +212,9 @@ public class Numericas extends javax.swing.JPanel {
             
             
         } catch (IOException ex) {
-            Logger.getLogger(Numericas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
         } catch (BiffException ex) {
-            Logger.getLogger(Numericas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return excelTable;
     }
@@ -232,7 +232,7 @@ public class Numericas extends javax.swing.JPanel {
     public RowTable questionsTableAddRow(int tableSize){
         JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize + 1) + ":");
         JTextField question = new JTextField();
-        question.setColumns(20);
+        question.setColumns(questionTable_TEXTFIELD_WIDTH);
         
         RowTable row    = new RowTable();
         row.addComponent(questionNumber);
