@@ -13,8 +13,6 @@ import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -26,7 +24,6 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import layout.GeneratorControllerInterface;
-import layout.GeneratorModelInterface;
 
 /**
  *
@@ -227,10 +224,10 @@ public class Questions extends javax.swing.JPanel {
         int col = excelTable.columnAtPoint(evt.getPoint());
 
         if(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() != null){
-        if(JTextField.class == KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().getClass()){
-            JTextField text = (JTextField) KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-            text.setText((String) excelTable.getValueAt(row, col));
-        };
+            if(JTextField.class == KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().getClass()){
+                JTextField text = (JTextField) KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+                text.setText((String) excelTable.getValueAt(row, col));
+            };
         }
     }
     
