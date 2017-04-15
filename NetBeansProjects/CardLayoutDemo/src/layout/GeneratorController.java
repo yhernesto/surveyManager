@@ -67,8 +67,12 @@ public class GeneratorController implements GeneratorControllerInterface{
     
     public void loadExcelTable(String excelPath){
         //  comentado mientras debugeamos porque no se un panel dentro de otro
-        generatorView.wizard.numericas.loadExcel(excelPath);
-        generatorView.wizard.texto.loadExcel(excelPath);
+        generatorView.wizard.subjNumerical.loadExcel(excelPath);
+        generatorView.wizard.subjTextual.loadExcel(excelPath);
+        generatorView.wizard.proffEvaluated.loadExcel(excelPath);
+        generatorView.wizard.proffTextual.loadExcel(excelPath);
+        generatorView.wizard.proffNumerical.loadExcel(excelPath);
+
     }
     
     public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel, RowTable newRow){

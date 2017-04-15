@@ -5,7 +5,10 @@
  */
 package layout;
 
+import Panels.ProffesorQuestions;
 import Panels.Questions;
+import Panels.SimpleQuestions;
+import Panels.SubjectQuestions;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 
@@ -19,9 +22,12 @@ public class Wizard extends javax.swing.JPanel {
      * Creates new form Wizard
      */
     private GeneratorControllerInterface gci;
-    static Questions numericas;
-    static Questions texto;
-    
+    public SubjectQuestions     subjNumerical;
+    public SubjectQuestions     subjTextual;
+    public SimpleQuestions      proffEvaluated;
+    public ProffesorQuestions   proffNumerical;
+    public ProffesorQuestions   proffTextual;
+
     public Wizard(){};
     
     public Wizard(GeneratorControllerInterface gci) {
@@ -60,6 +66,15 @@ public class Wizard extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         Tab3_next = new javax.swing.JButton();
         Tab3_cancel = new javax.swing.JButton();
+        wizard_tab3Panel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        wizard_tab4Panel = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        wizard_tab5Panel = new javax.swing.JPanel();
 
         jButton1.setText("jButton1");
 
@@ -93,7 +108,7 @@ public class Wizard extends javax.swing.JPanel {
         );
         wizard_tab1PanelLayout.setVerticalGroup(
             wizard_tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout wizard_tab1Layout = new javax.swing.GroupLayout(wizard_tab1);
@@ -105,7 +120,7 @@ public class Wizard extends javax.swing.JPanel {
                 .addGroup(wizard_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wizard_tab1Layout.createSequentialGroup()
-                        .addGap(0, 269, Short.MAX_VALUE)
+                        .addGap(0, 310, Short.MAX_VALUE)
                         .addComponent(Tab1_cancel)
                         .addGap(27, 27, 27)
                         .addComponent(Tab1_next))
@@ -131,7 +146,7 @@ public class Wizard extends javax.swing.JPanel {
                     .addComponent(Tab1_cancel)))
         );
 
-        TabbedPane.addTab("tab1", wizard_tab1);
+        TabbedPane.addTab("Asignatura 1", wizard_tab1);
 
         Tab2_next.setText("next");
         Tab2_next.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +172,7 @@ public class Wizard extends javax.swing.JPanel {
         );
         wizard_tab2PanelLayout.setVerticalGroup(
             wizard_tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 304, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -167,7 +182,7 @@ public class Wizard extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(290, Short.MAX_VALUE)
+                        .addContainerGap(331, Short.MAX_VALUE)
                         .addComponent(Tab2_cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Tab2_next))
@@ -198,9 +213,9 @@ public class Wizard extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        TabbedPane.addTab("tab2", jPanel2);
+        TabbedPane.addTab("Asignatura 2", jPanel2);
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Profesores evaluados");
 
         Tab3_next.setText("next");
         Tab3_next.addActionListener(new java.awt.event.ActionListener() {
@@ -216,49 +231,153 @@ public class Wizard extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout wizard_tab3PanelLayout = new javax.swing.GroupLayout(wizard_tab3Panel);
+        wizard_tab3Panel.setLayout(wizard_tab3PanelLayout);
+        wizard_tab3PanelLayout.setHorizontalGroup(
+            wizard_tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 424, Short.MAX_VALUE)
+        );
+        wizard_tab3PanelLayout.setVerticalGroup(
+            wizard_tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 312, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(wizard_tab3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 269, Short.MAX_VALUE)
+                        .addGap(0, 310, Short.MAX_VALUE)
                         .addComponent(Tab3_cancel)
                         .addGap(27, 27, 27)
-                        .addComponent(Tab3_next)))
+                        .addComponent(Tab3_next))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(wizard_tab3Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tab3_next)
                     .addComponent(Tab3_cancel))
                 .addContainerGap())
         );
 
-        TabbedPane.addTab("tab3", jPanel3);
+        TabbedPane.addTab("Profesor 1", jPanel3);
+
+        jLabel2.setText("Preguntas numéricas");
+
+        javax.swing.GroupLayout wizard_tab4PanelLayout = new javax.swing.GroupLayout(wizard_tab4Panel);
+        wizard_tab4Panel.setLayout(wizard_tab4PanelLayout);
+        wizard_tab4PanelLayout.setHorizontalGroup(
+            wizard_tab4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        wizard_tab4PanelLayout.setVerticalGroup(
+            wizard_tab4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
+
+        jButton3.setText("jButton3");
+
+        jButton4.setText("jButton4");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addGap(11, 11, 11))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(wizard_tab4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 322, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wizard_tab4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        TabbedPane.addTab("Profesor 2", jPanel1);
+
+        jLabel5.setText("Preguntas de texto");
+
+        javax.swing.GroupLayout wizard_tab5PanelLayout = new javax.swing.GroupLayout(wizard_tab5Panel);
+        wizard_tab5Panel.setLayout(wizard_tab5PanelLayout);
+        wizard_tab5PanelLayout.setHorizontalGroup(
+            wizard_tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
+        wizard_tab5PanelLayout.setVerticalGroup(
+            wizard_tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(wizard_tab5Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wizard_tab5Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        TabbedPane.addTab("Profesor 3", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TabbedPane)
-                .addContainerGap())
+            .addComponent(TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,13 +424,22 @@ public class Wizard extends javax.swing.JPanel {
     
     private void myInit(){
         System.out.println("inicio del wizzard");
-        numericas   = new Questions(gci);
-        texto   = new Questions(gci);
-//        numericas.loadExcel(gci.getExcelPath());
+        subjNumerical   = new SubjectQuestions(gci);
+        subjTextual     = new SubjectQuestions(gci);
+        proffEvaluated  = new SimpleQuestions(gci);
+        proffNumerical  = new ProffesorQuestions(gci);
+        proffTextual    = new ProffesorQuestions(gci);
+//        subjNumerical.loadExcel(gci.getExcelPath());
         wizard_tab1Panel.setLayout(new BorderLayout());
-        wizard_tab1Panel.add(numericas,BorderLayout.NORTH); 
+        wizard_tab1Panel.add(subjNumerical,BorderLayout.NORTH); 
         wizard_tab2Panel.setLayout(new BorderLayout());
-        wizard_tab2Panel.add(texto,BorderLayout.NORTH); 
+        wizard_tab2Panel.add(subjTextual,BorderLayout.NORTH); 
+        wizard_tab3Panel.setLayout(new BorderLayout());
+        wizard_tab3Panel.add(proffEvaluated,BorderLayout.NORTH); 
+        wizard_tab4Panel.setLayout(new BorderLayout());
+        wizard_tab4Panel.add(proffTextual,BorderLayout.NORTH); 
+        wizard_tab5Panel.setLayout(new BorderLayout());
+        wizard_tab5Panel.add(proffNumerical,BorderLayout.NORTH); 
     }
     
     
@@ -319,18 +447,24 @@ public class Wizard extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Tab1_cancel;
     private javax.swing.JButton Tab1_next;
-    private javax.swing.JButton Tab2_cancel;
+    public javax.swing.JButton Tab2_cancel;
     private javax.swing.JButton Tab2_next;
     private javax.swing.JButton Tab3_cancel;
     private javax.swing.JButton Tab3_next;
     private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -338,5 +472,8 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JPanel wizard_tab1;
     private javax.swing.JPanel wizard_tab1Panel;
     private javax.swing.JPanel wizard_tab2Panel;
+    private javax.swing.JPanel wizard_tab3Panel;
+    private javax.swing.JPanel wizard_tab4Panel;
+    private javax.swing.JPanel wizard_tab5Panel;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,8 @@ import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -112,12 +114,13 @@ public class Questions extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
-        gci.questions_buttonAdd(questionTable, questionTableModel, questionsTableAddRow(questionTableModel.getTotalRows()));
+
+        addButtonAction();
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        gci.question_buttonRemove(questionTable, questionTableModel);
+
+        removeButtonAction();
     }//GEN-LAST:event_removeButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -130,9 +133,10 @@ public class Questions extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     public  Table questionTable;
     public  ModelTable questionTableModel;
-    private GeneratorControllerInterface gci;
-    private int excelTable_MAX_ROWS_TO_SHOW = 10;
-    private int questionTable_TEXTFIELD_WIDTH = 20;
+    public GeneratorControllerInterface gci;
+    private final int excelTable_MAX_ROWS_TO_SHOW = 10;
+    private final int questionTable_TEXTFIELD_WIDTH = 20;
+
     
 //    private GeneratorControllerInterface gci;
 //    private GeneratorModelInterface gmi;
@@ -140,16 +144,16 @@ public class Questions extends javax.swing.JPanel {
 
     public Questions(GeneratorControllerInterface gci) {
         initComponents();
-        myInitComponentes(gci);
+//        myInitComponentes(gci);
     }
 
-    private void myInitComponentes(GeneratorControllerInterface gci) {
+    public void myInitComponents(GeneratorControllerInterface gci) {
         this.gci = gci;
         questionTableModel   =   new ModelTable();
         questionTableModel.mustNotBeEmpty(true);
         questionTableModel.setMaxRows(10);
         
-        /*de la nueva tabla */
+        
         excelTable  = new JTable();
         excelTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         excelTable.setAutoscrolls(false);
@@ -158,7 +162,18 @@ public class Questions extends javax.swing.JPanel {
                 excelTable1MouseClicked(evt);
             }
         });
-
+        
+        //inicializando la tabla de preguntas
+        
+    }
+    
+    public void questionTableInit(ModelTable questionTableModel){
+        questionTable    =  new Table(questionTableModel);  
+        questionTable.setLayout(new GridBagLayout());        
+        questionTable.updateTable(questionTableModel);
+        
+        scrollPane.add(questionTable);
+        scrollPane.setViewportView(questionTable);
     }
     
     public void loadExcel(String excelPath){
@@ -166,18 +181,6 @@ public class Questions extends javax.swing.JPanel {
         excelTable.setModel(model);
         excelTable = excelTableLoad(excelTable, excelPath);
         jScrollPane2.setViewportView(excelTable);
-        
-        //******** tabla de preguntas *************
-        //Inicialmente solo crea una fila de preguntas
-        questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
-        //antes era: questionModelTable.getTotalRows() pero da NULL POINTER
-        
-        questionTable    =  new Table(questionTableModel);
-        questionTable.setLayout(new GridBagLayout());        
-        questionTable.updateTable(questionTableModel);
-        
-        scrollPane.add(questionTable);
-        scrollPane.setViewportView(questionTable);
         
     }
     
@@ -223,10 +226,12 @@ public class Questions extends javax.swing.JPanel {
         int row = excelTable.rowAtPoint(evt.getPoint());
         int col = excelTable.columnAtPoint(evt.getPoint());
 
+        if(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() != null){
         if(JTextField.class == KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().getClass()){
             JTextField text = (JTextField) KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
             text.setText((String) excelTable.getValueAt(row, col));
         };
+        }
     }
     
     public RowTable questionsTableAddRow(int tableSize){
@@ -240,5 +245,13 @@ public class Questions extends javax.swing.JPanel {
         
         System.out.println(questionNumber.getText());
         return row;
+    }
+
+    public void addButtonAction(){
+        gci.questions_buttonAdd(questionTable, questionTableModel, questionsTableAddRow(questionTableModel.getTotalRows()));
+    }
+
+    public void removeButtonAction(){
+        gci.question_buttonRemove(questionTable, questionTableModel);
     }
 }
