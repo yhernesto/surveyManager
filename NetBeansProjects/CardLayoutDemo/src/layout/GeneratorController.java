@@ -75,8 +75,8 @@ public class GeneratorController implements GeneratorControllerInterface{
 
     }
     
-    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel, RowTable newRow){
-        questionTableModel.addRowTable(newRow);
+    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel){
+//        questionTableModel.addRowTable(newRow);
         questionTable.updateTable(questionTableModel);
     }
 

@@ -148,7 +148,7 @@ public class Questions extends javax.swing.JPanel {
         this.gci = gci;
         questionTableModel   =   new ModelTable();
         questionTableModel.mustNotBeEmpty(true);
-        questionTableModel.setMaxRows(10);
+        questionTableModel.setMaxRows(50);
         
         
         excelTable  = new JTable();
@@ -245,7 +245,8 @@ public class Questions extends javax.swing.JPanel {
     }
 
     public void addButtonAction(){
-        gci.questions_buttonAdd(questionTable, questionTableModel, questionsTableAddRow(questionTableModel.getTotalRows()));
+        questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
+        gci.questions_buttonAdd(questionTable, questionTableModel);
     }
 
     public void removeButtonAction(){

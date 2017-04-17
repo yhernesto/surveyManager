@@ -25,7 +25,7 @@ public interface GeneratorControllerInterface {
     void setReportPath(String reportPath);
     String getExcelPath();
     void loadExcelTable(String excelPath);
-    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel, RowTable newRow);
+    public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel);
     public void question_buttonRemove(Table questionTable,ModelTable questionTableModel);
 
 }

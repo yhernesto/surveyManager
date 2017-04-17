@@ -30,12 +30,9 @@ public class SubjectQuestions extends Questions{
 
     
     public void addButtonAction(){
-            gci.questions_buttonAdd(questionTable, questionTableModel, questionsTableAddRow(questionTableModel.getTotalRows()));
+            questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
+            gci.questions_buttonAdd(questionTable, questionTableModel);
     }
-    
-    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        gci.question_buttonRemove(questionTable, questionTableModel);
-    } 
     
     public RowTable questionsTableAddRow(int tableSize){
     JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize + 1) + ":");
@@ -52,5 +49,5 @@ public class SubjectQuestions extends Questions{
     System.out.println(questionNumber.getText());
     return row;
 }
-
+    
 }

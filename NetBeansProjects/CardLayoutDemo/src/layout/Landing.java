@@ -268,24 +268,26 @@ public class Landing extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setTextExcelPanelTextfield(String text){
-        excelPanelTextfield.setText(text);
-    }
     
     private void LandingPanelOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LandingPanelOkActionPerformed
 
         JPanel cards = (JPanel) getParent();
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.next(cards);
+        //*** solo para las pruebas y no tener que estar poniendo la url del excel cada vez
+        gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls"); 
+        gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
+        //****
         gci.loadExcelTable(gci.getExcelPath());
     }//GEN-LAST:event_LandingPanelOkActionPerformed
 
     private void excelPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelPanelButtonActionPerformed
 
         JFileChooser fileChooser = new JFileChooser();
-        String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, new String[] {"xls", "xlsx"});
-        gci.setExcelPath(filePathAndName[0]);
-        gci.setTextTextfield(excelPanelTextfield, filePathAndName[1]);
+//        String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, new String[] {"xls", "xlsx"});
+//        gci.setExcelPath(filePathAndName[0]); 
+//        gci.setTextTextfield(excelPanelTextfield, filePathAndName[1]); 
+
     }//GEN-LAST:event_excelPanelButtonActionPerformed
 
     private void csvPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvPanelButtonActionPerformed
