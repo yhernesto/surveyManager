@@ -15,6 +15,8 @@ public class SimpleQuestions extends Questions {
     
     public SimpleQuestions(GeneratorControllerInterface gci) {
         super(gci);
+        questionTableCenterHeader.setText("Nombre de los Profesores: ");
+        rowTitleSetText("");
         myInitComponents(gci);
         questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
         questionTableInit(questionTableModel);

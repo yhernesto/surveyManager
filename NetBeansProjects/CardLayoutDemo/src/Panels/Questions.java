@@ -47,6 +47,9 @@ public class Questions extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         excelTable = new javax.swing.JTable();
+        questionTableLeftHeader = new javax.swing.JLabel();
+        questionTableCenterHeader = new javax.swing.JLabel();
+        questionTableRightHeader = new javax.swing.JLabel();
 
         addButton.setText("+");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,35 +80,56 @@ public class Questions extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
+        questionTableLeftHeader.setText(" ");
+
+        questionTableCenterHeader.setText(" ");
+
+        questionTableRightHeader.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollPane)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                            .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(questionTableLeftHeader)
+                .addGap(82, 82, 82)
+                .addComponent(questionTableCenterHeader)
+                .addGap(54, 54, 54)
+                .addComponent(questionTableRightHeader)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(questionTableLeftHeader)
+                    .addComponent(questionTableCenterHeader)
+                    .addComponent(questionTableRightHeader))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 41, Short.MAX_VALUE)))
+                        .addGap(0, 89, Short.MAX_VALUE))
+                    .addComponent(scrollPane))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -125,6 +149,9 @@ public class Questions extends javax.swing.JPanel {
     private javax.swing.JTable excelTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JLabel questionTableCenterHeader;
+    public javax.swing.JLabel questionTableLeftHeader;
+    public javax.swing.JLabel questionTableRightHeader;
     private javax.swing.JButton removeButton;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
@@ -133,6 +160,7 @@ public class Questions extends javax.swing.JPanel {
     public GeneratorControllerInterface gci;
     private final int excelTable_MAX_ROWS_TO_SHOW = 10;
     private final int questionTable_TEXTFIELD_WIDTH = 20;
+    private String rowTitle = "Pregunta ";
 
     
 //    private GeneratorControllerInterface gci;
@@ -159,8 +187,6 @@ public class Questions extends javax.swing.JPanel {
                 excelTable1MouseClicked(evt);
             }
         });
-        
-        //inicializando la tabla de preguntas
         
     }
     
@@ -226,13 +252,17 @@ public class Questions extends javax.swing.JPanel {
         if(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() != null){
             if(JTextField.class == KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().getClass()){
                 JTextField text = (JTextField) KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-                text.setText((String) excelTable.getValueAt(row, col));
+                if(text.getColumns() > 3){
+                    text.setText((String) excelTable.getValueAt(row, col));
+                }else{
+                    text.setText((String) excelTable.getColumnName(col));
+                }
             };
         }
     }
     
     public RowTable questionsTableAddRow(int tableSize){
-        JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize + 1) + ":");
+        JLabel  questionNumber  = new JLabel(rowTitle + Integer.toString(tableSize + 1) + ": ");
         JTextField question = new JTextField();
         question.setColumns(questionTable_TEXTFIELD_WIDTH);
         
@@ -251,5 +281,9 @@ public class Questions extends javax.swing.JPanel {
 
     public void removeButtonAction(){
         gci.question_buttonRemove(questionTable, questionTableModel);
+    }
+    
+    public void rowTitleSetText(String title){
+        rowTitle = title;
     }
 }

@@ -17,7 +17,7 @@ import layout.GeneratorControllerInterface;
  * @author ernesto
  */
 public class ProffesorQuestions extends Questions {
-    int questionTable_TEXTFIELD_WIDTH = 20;
+    int questionTable_TEXTFIELD_WIDTH = 25;
     List profesores = new ArrayList();
     
     public ProffesorQuestions(GeneratorControllerInterface gci) {
@@ -31,7 +31,8 @@ public class ProffesorQuestions extends Questions {
         profesores.add("prof1");
         profesores.add("prof2");
         profesores.add("prof3");
-        
+        questionTableLeftHeader.setText("Pregunta: ");
+        questionTableRightHeader.setText("Profesores: ");
         questionsTableAddRow(questionTableModel.getTotalRows(), profesores);
         questionTableInit(questionTableModel);
     }
@@ -42,13 +43,14 @@ public class ProffesorQuestions extends Questions {
         JTextField question     = new JTextField();
         JTextField answerColumn = new JTextField(3);
         question.setColumns(questionTable_TEXTFIELD_WIDTH);
+        JLabel emptySpace   = new JLabel("  ");
 
         JLabel proffesorName    = new JLabel(String.valueOf(profesores.get(0)));
         
         RowTable row    = new RowTable();
         row.addComponent(questionNumber);
         row.addComponent(question);
-//        row.addComponent(emptySpace);
+        row.addComponent(emptySpace);
         row.addComponent(proffesorName);
         row.addComponent(answerColumn);
         
@@ -61,13 +63,15 @@ public class ProffesorQuestions extends Questions {
     private void addProffesors(List profesores){
         for(int i=1; i<profesores.size(); i++){
             RowTable row = new RowTable();
-            JLabel emptySpace1 = new JLabel(" ");
             JLabel emptySpace = new JLabel(" ");
+            JLabel emptySpace1 = new JLabel(" ");
+            JLabel emptySpace2 = new JLabel(" ");
             JLabel proffesorName    = new JLabel(String.valueOf(profesores.get(i)));
             JTextField answerColumn = new JTextField(3);
 
-            row.addComponent(emptySpace1);
             row.addComponent(emptySpace);
+            row.addComponent(emptySpace1);
+            row.addComponent(emptySpace2);
             row.addComponent(proffesorName);
             row.addComponent(answerColumn);
             questionTableModel.addRowTable(row);
