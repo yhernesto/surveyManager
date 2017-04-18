@@ -5,6 +5,10 @@
  */
 package Panels;
 
+import InterfaceClasses.RowTable;
+import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
 
 /**
@@ -15,11 +19,28 @@ public class SimpleQuestions extends Questions {
     
     public SimpleQuestions(GeneratorControllerInterface gci) {
         super(gci);
-        questionTableCenterHeader.setText("Nombre de los Profesores: ");
+        initGeneralComponents(gci);
+        myInitComponents();
+    }
+    
+    private void myInitComponents(){
         rowTitleSetText("");
-        myInitComponents(gci);
+        questionTableCenterHeader.setText("Nombre de los Profesores: ");
         questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
         questionTableInit(questionTableModel);
+    }
+    
+        public ArrayList<String> getProffesors(){
+        ArrayList proffesors = new ArrayList();
+        for(RowTable row : questionTableModel.getRows()){
+            for(Component component : row.getComponents()){
+                if(component.getClass() == JTextField.class){
+                    JTextField textField = (JTextField) component;
+                    proffesors.add(textField.getText());
+                }
+            }
+        }
+        return proffesors;
     }
     
 }

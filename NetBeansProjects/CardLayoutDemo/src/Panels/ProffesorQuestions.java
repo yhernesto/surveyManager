@@ -25,9 +25,11 @@ public class ProffesorQuestions extends Questions {
    // con la fila
    
         super(gci);
-        myInitComponents(gci);
-        
-        
+        initGeneralComponents(gci);
+        myInitComponents();
+    }
+    
+    private void myInitComponents(){
         profesores.add("prof1");
         profesores.add("prof2");
         profesores.add("prof3");

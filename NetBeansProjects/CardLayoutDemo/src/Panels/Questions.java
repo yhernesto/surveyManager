@@ -172,7 +172,7 @@ public class Questions extends javax.swing.JPanel {
 //        myInitComponentes(gci);
     }
 
-    public void myInitComponents(GeneratorControllerInterface gci) {
+    public void initGeneralComponents(GeneratorControllerInterface gci) {
         this.gci = gci;
         questionTableModel   =   new ModelTable();
         questionTableModel.mustNotBeEmpty(true);

@@ -22,12 +22,14 @@ public class SubjectQuestions extends Questions{
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
    // con la fila
         super(gci);
-        myInitComponents(gci);
+        initGeneralComponents(gci);
+        myInitComponents();
+    }
+    
+    private void myInitComponents(){
         questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
         questionTableInit(questionTableModel);
     }
-    
-
     
     public void addButtonAction(){
             questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
