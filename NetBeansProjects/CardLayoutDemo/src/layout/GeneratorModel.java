@@ -5,6 +5,8 @@
  */
 package layout;
 
+import java.util.ArrayList;
+
 /**
  * @author ernesto
  */
@@ -13,6 +15,7 @@ public class GeneratorModel implements GeneratorModelInterface{
     String  excelPath;
     String  csvPath;
     String  reportPath;
+    ArrayList<String>   proffesors;
     
     public void setExcelPath(String excelPath){
         this.excelPath  = excelPath;
@@ -30,4 +33,15 @@ public class GeneratorModel implements GeneratorModelInterface{
         return this.excelPath;
     }
     
+    public ArrayList<String> getProffesors(){
+        if(proffesors == null) {
+            proffesors = new ArrayList();
+            proffesors.add("");
+        }
+        return proffesors;
+    }
+    
+    public void setProffesors(ArrayList<String> proffesors){
+        this.proffesors = proffesors;
+    }
 }

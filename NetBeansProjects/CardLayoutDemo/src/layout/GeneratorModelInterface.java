@@ -5,6 +5,8 @@
  */
 package layout;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ernesto
@@ -15,4 +17,6 @@ public interface GeneratorModelInterface {
     void setCsvPath(String csvPath);
     void setReportPath(String reportPath);
     String getExcelPath();
+    ArrayList<String> getProffesors();
+    void setProffesors(ArrayList<String> proffesors);
 }

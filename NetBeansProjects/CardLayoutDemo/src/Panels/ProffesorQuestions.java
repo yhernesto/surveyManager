@@ -18,7 +18,6 @@ import layout.GeneratorControllerInterface;
  */
 public class ProffesorQuestions extends Questions {
     int questionTable_TEXTFIELD_WIDTH = 25;
-    List profesores = new ArrayList();
     
     public ProffesorQuestions(GeneratorControllerInterface gci) {
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
@@ -29,13 +28,10 @@ public class ProffesorQuestions extends Questions {
         myInitComponents();
     }
     
-    private void myInitComponents(){
-        profesores.add("prof1");
-        profesores.add("prof2");
-        profesores.add("prof3");
+    public void myInitComponents(){
         questionTableLeftHeader.setText("Pregunta: ");
         questionTableRightHeader.setText("Profesores: ");
-        questionsTableAddRow(questionTableModel.getTotalRows(), profesores);
+        questionsTableAddRow(questionTableModel.getTotalRows(), gci.getProffesors());
         questionTableInit(questionTableModel);
     }
     
@@ -57,7 +53,6 @@ public class ProffesorQuestions extends Questions {
         row.addComponent(answerColumn);
         
         questionTableModel.addRowTable(row);
-//        questionTable.updateTable(questionTableModel);
         
         addProffesors(profesores);
     }
@@ -81,13 +76,17 @@ public class ProffesorQuestions extends Questions {
     }
     
     public void addButtonAction(){
-        questionsTableAddRow(questionTableModel.getTotalRows(), profesores);
+        questionsTableAddRow(questionTableModel.getTotalRows(), gci.getProffesors());
         gci.questions_buttonAdd(questionTable, questionTableModel);
     }
     
     public void removeButtonAction(){
-        if(questionTableModel.getTotalRows()>profesores.size()){
-            for(int i=0; i<profesores.size(); i++) gci.question_buttonRemove(questionTable, questionTableModel);
+        if(questionTableModel.getTotalRows()>gci.getProffesors().size()){
+            for(int i=0; i<gci.getProffesors().size(); i++) gci.question_buttonRemove(questionTable, questionTableModel);
         }
+    }
+    
+    public void clearProffesorsList(){
+        questionTableModel.setEmpty();
     }
 }

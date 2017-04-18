@@ -6,7 +6,6 @@
 package layout;
 
 import Panels.ProffesorQuestions;
-import Panels.Questions;
 import Panels.SimpleQuestions;
 import Panels.SubjectQuestions;
 import java.awt.BorderLayout;
@@ -48,7 +47,7 @@ public class Wizard extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        TabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         wizard_tab1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         Tab1_next = new javax.swing.JButton();
@@ -147,7 +146,7 @@ public class Wizard extends javax.swing.JPanel {
                     .addComponent(Tab1_cancel)))
         );
 
-        TabbedPane.addTab("Asignatura 1", wizard_tab1);
+        tabbedPane.addTab("Asignatura 1", wizard_tab1);
 
         Tab2_next.setText("next");
         Tab2_next.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +212,7 @@ public class Wizard extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        TabbedPane.addTab("Asignatura 2", jPanel2);
+        tabbedPane.addTab("Asignatura 2", jPanel2);
 
         jLabel3.setText("Profesores evaluados");
 
@@ -277,7 +276,7 @@ public class Wizard extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        TabbedPane.addTab("Profesor 1", jPanel3);
+        tabbedPane.addTab("Profesor 1", jPanel3);
 
         jLabel2.setText("Preguntas numéricas");
 
@@ -336,7 +335,7 @@ public class Wizard extends javax.swing.JPanel {
                 .addGap(14, 14, 14))
         );
 
-        TabbedPane.addTab("Profesor 2", jPanel1);
+        tabbedPane.addTab("Profesor 2", jPanel1);
 
         jLabel5.setText("Preguntas de texto");
 
@@ -374,21 +373,21 @@ public class Wizard extends javax.swing.JPanel {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        TabbedPane.addTab("Profesor 3", jPanel4);
+        tabbedPane.addTab("Profesor 3", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedPane)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -396,39 +395,43 @@ public class Wizard extends javax.swing.JPanel {
     
     private void Tab1_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab1_cancelActionPerformed
         // TODO add your handling code here:
-       gci.previousButton((JButton) evt.getSource(), TabbedPane);
+       gci.previousButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab1_cancelActionPerformed
 
     private void Tab3_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab3_nextActionPerformed
         // TODO add your handling code here:
-        gci.nextButton((JButton) evt.getSource(), TabbedPane);
+        gci.updateEvaluatedProffesors();
+        gci.nextButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab3_nextActionPerformed
 
     private void Tab3_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab3_cancelActionPerformed
         // TODO add your handling code here:
-        gci.previousButton((JButton) evt.getSource(), TabbedPane);
+        gci.previousButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab3_cancelActionPerformed
 
     private void Tab1_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab1_nextActionPerformed
         // TODO add your handling code here:
-        gci.nextButton((JButton) evt.getSource(), TabbedPane);
+        gci.nextButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab1_nextActionPerformed
 
     private void Tab2_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_cancelActionPerformed
         // TODO add your handling code here:
-        gci.previousButton((JButton) evt.getSource(), TabbedPane);
+        gci.previousButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab2_cancelActionPerformed
 
     private void Tab2_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tab2_nextActionPerformed
         // TODO add your handling code here:
 
-        gci.nextButton((JButton) evt.getSource(), TabbedPane);
+        gci.nextButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_Tab2_nextActionPerformed
     
     
     
     private void myInit(){
         System.out.println("inicio del wizzard");
+        
+        for(int i = 1; i < tabbedPane.getTabCount(); i++) tabbedPane.setEnabledAt(i, false);
+        
         subjNumerical   = new SubjectQuestions(gci);
         subjTextual     = new SubjectQuestions(gci);
         proffEvaluated  = new SimpleQuestions(gci);
@@ -456,7 +459,6 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JButton Tab2_next;
     private javax.swing.JButton Tab3_cancel;
     private javax.swing.JButton Tab3_next;
-    private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -475,6 +477,7 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JPanel wizard_tab1;
     private javax.swing.JPanel wizard_tab1Panel;
     private javax.swing.JPanel wizard_tab2Panel;

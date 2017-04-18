@@ -8,6 +8,7 @@ package layout;
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.RowTable;
 import InterfaceClasses.Table;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -18,19 +19,20 @@ import javax.swing.JTextField;
  */
 public class GeneratorController implements GeneratorControllerInterface{
     
-    GeneratorView generatorView;
+    GeneratorView gview;
     GeneratorModelInterface gmi;
     
     public GeneratorController(GeneratorModelInterface gmi){
         this.gmi = gmi;
-        generatorView = new GeneratorView(this, gmi);
-        generatorView.createAndShowGUI();
+        gview = new GeneratorView(this, gmi);
+        gview.createAndShowGUI();
     }
     
     public void nextButton(JButton jb , JTabbedPane jtp ){
         System.out.println(jtp.getSelectedIndex());
         if(jtp.getSelectedIndex() < jtp.getTabCount() - 1){
             jtp.setSelectedIndex(jtp.getSelectedIndex() + 1);
+            jtp.setEnabledAt(jtp.getSelectedIndex(), true);
         }else{
             System.out.println("no existe siguiente");
         }
@@ -67,11 +69,11 @@ public class GeneratorController implements GeneratorControllerInterface{
     
     public void loadExcelTable(String excelPath){
         //  comentado mientras debugeamos porque no se un panel dentro de otro
-        generatorView.wizard.subjNumerical.loadExcel(excelPath);
-        generatorView.wizard.subjTextual.loadExcel(excelPath);
-        generatorView.wizard.proffEvaluated.loadExcel(excelPath);
-        generatorView.wizard.proffTextual.loadExcel(excelPath);
-        generatorView.wizard.proffNumerical.loadExcel(excelPath);
+        gview.wizard.subjNumerical.loadExcel(excelPath);
+        gview.wizard.subjTextual.loadExcel(excelPath);
+        gview.wizard.proffEvaluated.loadExcel(excelPath);
+        gview.wizard.proffTextual.loadExcel(excelPath);
+        gview.wizard.proffNumerical.loadExcel(excelPath);
 
     }
     
@@ -84,4 +86,23 @@ public class GeneratorController implements GeneratorControllerInterface{
         questionTableModel.removeLastRowTable();
         questionTable.updateTable(questionTableModel);
     };
+
+    public void setProffesors(ArrayList<String> proffesors) {
+        gmi.setProffesors(proffesors);
+    }
+
+    public ArrayList<String> getProffesors() {
+        return gmi.getProffesors();
+    }
+    
+    public void updateEvaluatedProffesors(){
+        gview.wizard.proffNumerical.clearProffesorsList();
+        gview.wizard.proffTextual.clearProffesorsList();
+        
+        setProffesors(gview.wizard.proffEvaluated.getProffesors());
+        
+        gview.wizard.proffNumerical.myInitComponents();
+        gview.wizard.proffTextual.myInitComponents();
+        
+    }
 }
