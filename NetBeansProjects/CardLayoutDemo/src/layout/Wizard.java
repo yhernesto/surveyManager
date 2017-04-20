@@ -485,6 +485,7 @@ public class Wizard extends javax.swing.JPanel {
         gci.updateTableData(proffEvaluated);
         proffEvaluated.setEnabled(false);
         gci.nextButton((JButton) evt.getSource(), tabbedPane);
+        tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex() + 1, false);  //inhabilitamos proffTextual
         tab3_edit.setEnabled(true);
         tab3_save.setEnabled(false);
     }//GEN-LAST:event_tab3_saveActionPerformed
@@ -633,10 +634,10 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JButton tab3_save;
     private javax.swing.JButton tab4_back;
     private javax.swing.JButton tab4_edit;
-    private javax.swing.JButton tab4_save;
+    public javax.swing.JButton tab4_save;
     private javax.swing.JButton tab5_back;
     private javax.swing.JButton tab5_edit;
-    private javax.swing.JButton tab5_save;
+    public javax.swing.JButton tab5_save;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JPanel wizard_tab1;
     private javax.swing.JPanel wizard_tab1Panel;

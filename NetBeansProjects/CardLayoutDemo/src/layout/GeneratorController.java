@@ -144,6 +144,10 @@ public class GeneratorController implements GeneratorControllerInterface{
     }
     
     public void updateProffesorsData(){
+        gview.wizard.proffNumerical.setEnabled(true);
+        gview.wizard.tab4_save.setEnabled(true);
+        gview.wizard.proffTextual.setEnabled(true);
+        gview.wizard.tab5_save.setEnabled(true);
         gview.wizard.proffNumerical.myInitComponents();
         gview.wizard.proffTextual.myInitComponents();
     }
