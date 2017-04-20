@@ -17,9 +17,9 @@ import layout.GeneratorControllerInterface;
  */
 public class SimpleQuestions extends Questions {
     
-    public SimpleQuestions(GeneratorControllerInterface gci) {
+    public SimpleQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
         super(gci);
-        initGeneralComponents(gci);
+        initGeneralComponents(gci,questionsType);
         myInitComponents();
     }
     
@@ -30,17 +30,5 @@ public class SimpleQuestions extends Questions {
         questionTableInit(questionTableModel);
     }
     
-        public ArrayList<String> getProffesors(){
-        ArrayList proffesors = new ArrayList();
-        for(RowTable row : questionTableModel.getRows()){
-            for(Component component : row.getComponents()){
-                if(component.getClass() == JTextField.class){
-                    JTextField textField = (JTextField) component;
-                    proffesors.add(textField.getText());
-                }
-            }
-        }
-        return proffesors;
-    }
     
 }

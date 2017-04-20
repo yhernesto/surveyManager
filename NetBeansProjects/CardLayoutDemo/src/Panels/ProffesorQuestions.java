@@ -19,12 +19,12 @@ import layout.GeneratorControllerInterface;
 public class ProffesorQuestions extends Questions {
     int questionTable_TEXTFIELD_WIDTH = 25;
     
-    public ProffesorQuestions(GeneratorControllerInterface gci) {
+    public ProffesorQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
    // con la fila
    
         super(gci);
-        initGeneralComponents(gci);
+        initGeneralComponents(gci, questionsType);
         myInitComponents();
     }
     
@@ -85,8 +85,6 @@ public class ProffesorQuestions extends Questions {
             for(int i=0; i<gci.getProffesors().size(); i++) gci.question_buttonRemove(questionTable, questionTableModel);
         }
     }
+
     
-    public void clearProffesorsList(){
-        questionTableModel.setEmpty();
-    }
 }

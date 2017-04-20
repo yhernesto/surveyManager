@@ -8,6 +8,10 @@ package layout;
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.RowTable;
 import InterfaceClasses.Table;
+import Panels.ProffesorQuestions;
+import Panels.Questions;
+import Panels.SimpleQuestions;
+import Panels.SubjectQuestions;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
@@ -31,5 +35,7 @@ public interface GeneratorControllerInterface {
     void loadExcelTable(String excelPath);
     void questions_buttonAdd(Table questionTable,ModelTable questionTableModel);
     void question_buttonRemove(Table questionTable,ModelTable questionTableModel);
-    void updateEvaluatedProffesors();
+    void updateTableData(Questions questionsAndAnswers);
+    void clearProffesorsData();
+    void updateProffesorsData();
 }

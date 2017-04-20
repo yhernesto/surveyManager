@@ -9,10 +9,12 @@ import InterfaceClasses.ModelTable;
 import InterfaceClasses.NonEditableModel;
 import InterfaceClasses.RowTable;
 import InterfaceClasses.Table;
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -159,8 +161,11 @@ public class Questions extends javax.swing.JPanel {
     public  ModelTable questionTableModel;
     public GeneratorControllerInterface gci;
     private final int excelTable_MAX_ROWS_TO_SHOW = 10;
-    private final int questionTable_TEXTFIELD_WIDTH = 20;
+    public final int QUESTIONS_TEXTFIELD_WIDTH = 20;
+    public final int ANSWERS_TEXTFIELD_WIDTH = 3;
     private String rowTitle = "Pregunta ";
+    public enum QuestionsType {NUMERICAL, TEXTUAL, SIMPLE};
+    public QuestionsType QUESTION_TYPE;
 
     
 //    private GeneratorControllerInterface gci;
@@ -172,7 +177,8 @@ public class Questions extends javax.swing.JPanel {
 //        myInitComponentes(gci);
     }
 
-    public void initGeneralComponents(GeneratorControllerInterface gci) {
+    public void initGeneralComponents(GeneratorControllerInterface gci, QuestionsType questionsType) {
+        this.QUESTION_TYPE = questionsType;
         this.gci = gci;
         questionTableModel   =   new ModelTable();
         questionTableModel.mustNotBeEmpty(true);
@@ -252,7 +258,7 @@ public class Questions extends javax.swing.JPanel {
         if(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() != null){
             if(JTextField.class == KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().getClass()){
                 JTextField text = (JTextField) KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-                if(text.getColumns() > 3){
+                if(text.getColumns() > ANSWERS_TEXTFIELD_WIDTH){
                     text.setText((String) excelTable.getValueAt(row, col));
                 }else{
                     text.setText((String) excelTable.getColumnName(col));
@@ -264,7 +270,7 @@ public class Questions extends javax.swing.JPanel {
     public RowTable questionsTableAddRow(int tableSize){
         JLabel  questionNumber  = new JLabel(rowTitle + Integer.toString(tableSize + 1) + ": ");
         JTextField question = new JTextField();
-        question.setColumns(questionTable_TEXTFIELD_WIDTH);
+        question.setColumns(QUESTIONS_TEXTFIELD_WIDTH);
         
         RowTable row    = new RowTable();
         row.addComponent(questionNumber);
@@ -285,5 +291,53 @@ public class Questions extends javax.swing.JPanel {
     
     public void rowTitleSetText(String title){
         rowTitle = title;
+    }
+
+    public QuestionsType getQUESTION_TYPE() {
+        return QUESTION_TYPE;
+    }
+    
+    public ArrayList<String> getQuestions(){
+        ArrayList questions = new ArrayList();
+        for(RowTable row : questionTableModel.getRows()){
+           for(Component component : row.getComponents()){
+                if(component.getClass() == JTextField.class){
+                    JTextField textField = (JTextField) component;
+                    if(textField.getColumns() == QUESTIONS_TEXTFIELD_WIDTH) questions.add(textField.getText());
+                }
+            }
+        }
+       return questions;
+    }
+    
+    public ArrayList<String> getAnswers(){
+        ArrayList answers = new ArrayList();
+       for (RowTable row : questionTableModel.getRows()) {
+            for (Component component : row.getComponents()) {
+                if (component.getClass() == JTextField.class) {
+                    JTextField textField = (JTextField) component;
+                    if (textField.getColumns() == ANSWERS_TEXTFIELD_WIDTH) {
+                        answers.add(textField.getText());
+                    }
+                }
+            }
+        }
+       return answers;
+    }
+    
+    public void clearData(){
+        questionTableModel.setEmpty();
+    }
+    
+    @Override
+    public void setEnabled(boolean bool){
+        for(Component component : this.getComponents()){
+            component.setEnabled(bool);
+        }
+        for (RowTable row : questionTableModel.getRows()) {
+            for (Component component : row.getComponents()) {
+                component.setEnabled(bool);
+            }
+        }
     }
 }

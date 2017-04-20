@@ -7,6 +7,8 @@ package Panels;
 
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.RowTable;
+import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
@@ -16,13 +18,12 @@ import layout.GeneratorControllerInterface;
  * @author ernesto
  */
 public class SubjectQuestions extends Questions{
-    private int questionTable_TEXTFIELD_WIDTH = 20;
 
-    public SubjectQuestions(GeneratorControllerInterface gci) {
+    public SubjectQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
    // con la fila
         super(gci);
-        initGeneralComponents(gci);
+        initGeneralComponents(gci, questionsType);
         myInitComponents();
     }
     
@@ -37,19 +38,19 @@ public class SubjectQuestions extends Questions{
     }
     
     public RowTable questionsTableAddRow(int tableSize){
-    JLabel  questionNumber  = new JLabel("Pregunta "+ Integer.toString(tableSize + 1) + ":");
-    JTextField question = new JTextField();
-    question.setColumns(questionTable_TEXTFIELD_WIDTH);
-    
-    JTextField answerColumn = new JTextField(3);
+        JLabel  questionNumber  = new JLabel(Integer.toString(tableSize + 1) + ":");
+        JTextField question = new JTextField();
+        question.setColumns(QUESTIONS_TEXTFIELD_WIDTH);
 
-    RowTable row    = new RowTable();
-    row.addComponent(questionNumber);
-    row.addComponent(question);
-    row.addComponent(answerColumn);
+        JTextField answerColumn = new JTextField(3);
 
-    System.out.println(questionNumber.getText());
-    return row;
-}
-    
+        RowTable row    = new RowTable();
+        row.addComponent(questionNumber);
+        row.addComponent(question);
+        row.addComponent(answerColumn);
+
+        System.out.println(questionNumber.getText());
+        return row;
+    }
+
 }
