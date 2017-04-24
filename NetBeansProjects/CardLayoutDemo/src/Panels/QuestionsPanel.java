@@ -7,6 +7,7 @@ package Panels;
 
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.NonEditableModel;
+import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
 import InterfaceClasses.Table;
 import java.awt.Component;
@@ -31,7 +32,7 @@ import layout.GeneratorControllerInterface;
  *
  * @author ernesto
  */
-public class Questions extends javax.swing.JPanel {
+public class QuestionsPanel extends javax.swing.JPanel {
 
 
     /**
@@ -164,20 +165,19 @@ public class Questions extends javax.swing.JPanel {
     public final int QUESTIONS_TEXTFIELD_WIDTH = 20;
     public final int ANSWERS_TEXTFIELD_WIDTH = 3;
     private String rowTitle = "Pregunta ";
-    public enum QuestionsType {NUMERICAL, TEXTUAL, SIMPLE};
-    public QuestionsType QUESTION_TYPE;
+    public QuestionType.type QUESTION_TYPE;
 
     
 //    private GeneratorControllerInterface gci;
 //    private GeneratorModelInterface gmi;
 
 
-    public Questions(GeneratorControllerInterface gci) {
+    public QuestionsPanel(GeneratorControllerInterface gci) {
         initComponents();
 //        myInitComponentes(gci);
     }
 
-    public void initGeneralComponents(GeneratorControllerInterface gci, QuestionsType questionsType) {
+    public void initGeneralComponents(GeneratorControllerInterface gci, QuestionType.type questionsType) {
         this.QUESTION_TYPE = questionsType;
         this.gci = gci;
         questionTableModel   =   new ModelTable();
@@ -244,9 +244,9 @@ public class Questions extends javax.swing.JPanel {
             
             
         } catch (IOException ex) {
-            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuestionsPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (BiffException ex) {
-            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuestionsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return excelTable;
     }
@@ -293,7 +293,7 @@ public class Questions extends javax.swing.JPanel {
         rowTitle = title;
     }
 
-    public QuestionsType getQUESTION_TYPE() {
+    public QuestionType.type getQUESTION_TYPE() {
         return QUESTION_TYPE;
     }
     

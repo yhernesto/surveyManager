@@ -5,6 +5,7 @@
  */
 package Panels;
 
+import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -15,9 +16,9 @@ import layout.GeneratorControllerInterface;
  *
  * @author ernesto
  */
-public class SimpleQuestions extends Questions {
+public class SimpleQuestionsPanel extends QuestionsPanel {
     
-    public SimpleQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
+    public SimpleQuestionsPanel(GeneratorControllerInterface gci, QuestionType.type questionsType) {
         super(gci);
         initGeneralComponents(gci,questionsType);
         myInitComponents();

@@ -6,12 +6,13 @@
 package layout;
 
 import InterfaceClasses.ModelTable;
+import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
 import InterfaceClasses.Table;
-import Panels.ProffesorQuestions;
-import Panels.Questions;
-import Panels.SimpleQuestions;
-import Panels.SubjectQuestions;
+import Panels.ProffesorQuestionsPanel;
+import Panels.QuestionsPanel;
+import Panels.SimpleQuestionsPanel;
+import Panels.SubjectQuestionsPanel;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
@@ -99,7 +100,7 @@ public class GeneratorController implements GeneratorControllerInterface{
         return gmi.getEvaluatedProffesors();
     }
 
-//    public void updateEvaluatedProffesors(SimpleQuestions evaluatedProffesors){
+//    public void updateEvaluatedProffesors(SimpleQuestionsPanel evaluatedProffesors){
 //        gview.wizard.proffNumerical.clearData();
 //        gview.wizard.proffTextual.clearData();
 //        
@@ -109,28 +110,28 @@ public class GeneratorController implements GeneratorControllerInterface{
 //        gview.wizard.proffTextual.myInitComponents();   
 //    }
     
-    public void updateTableData(Questions questionsAndAnswers){
-        if(questionsAndAnswers.getClass() == SubjectQuestions.class){
-            SubjectQuestions subjQuestions = (SubjectQuestions) questionsAndAnswers;
-            if(subjQuestions.getQUESTION_TYPE() == Questions.QuestionsType.NUMERICAL){
+    public void updateTableData(QuestionsPanel questionsAndAnswers){
+        if(questionsAndAnswers.getClass() == SubjectQuestionsPanel.class){
+            SubjectQuestionsPanel subjQuestions = (SubjectQuestionsPanel) questionsAndAnswers;
+            if(subjQuestions.getQUESTION_TYPE() == QuestionType.type.NUMERICAL){
                 gmi.setSubjectNumericalQuestions(subjQuestions.getQuestions());
                 gmi.setSubjectNumericalAnswers(subjQuestions.getAnswers());
-            }else if(subjQuestions.getQUESTION_TYPE() == Questions.QuestionsType.TEXTUAL){
+            }else if(subjQuestions.getQUESTION_TYPE() == QuestionType.type.TEXTUAL){
                 gmi.setSubjectTextualQuestions(subjQuestions.getQuestions());
                 gmi.setSubjectTextualAnswers(subjQuestions.getAnswers());                
             }
-        }else if (questionsAndAnswers.getClass() == ProffesorQuestions.class){
-            ProffesorQuestions proffQuestions = (ProffesorQuestions) questionsAndAnswers;
-            if(proffQuestions.getQUESTION_TYPE() == Questions.QuestionsType.NUMERICAL){
+        }else if (questionsAndAnswers.getClass() == ProffesorQuestionsPanel.class){
+            ProffesorQuestionsPanel proffQuestions = (ProffesorQuestionsPanel) questionsAndAnswers;
+            if(proffQuestions.getQUESTION_TYPE() == QuestionType.type.NUMERICAL){
                 gmi.setProffesorNumericalQuestions(proffQuestions.getQuestions());
                 gmi.setProffesorNumericalAnswers(proffQuestions.getAnswers());
-            }else if(proffQuestions.getQUESTION_TYPE() == Questions.QuestionsType.TEXTUAL){
+            }else if(proffQuestions.getQUESTION_TYPE() == QuestionType.type.TEXTUAL){
                 gmi.setProffesorTextualQuestions(proffQuestions.getQuestions());
                 gmi.setProffesorTextualAnswers(proffQuestions.getAnswers());                
             }
-        }else if(questionsAndAnswers.getClass() == SimpleQuestions.class){
-            SimpleQuestions simpleQuestions = (SimpleQuestions) questionsAndAnswers;
-            if(simpleQuestions.getQUESTION_TYPE() == Questions.QuestionsType.SIMPLE){
+        }else if(questionsAndAnswers.getClass() == SimpleQuestionsPanel.class){
+            SimpleQuestionsPanel simpleQuestions = (SimpleQuestionsPanel) questionsAndAnswers;
+            if(simpleQuestions.getQUESTION_TYPE() == QuestionType.type.SIMPLE){
                 clearProffesorsData();
                 gmi.setEvaluatedProffesors(simpleQuestions.getQuestions());
                 updateProffesorsData();

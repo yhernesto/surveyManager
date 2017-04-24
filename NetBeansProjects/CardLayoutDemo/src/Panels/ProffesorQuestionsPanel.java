@@ -5,6 +5,7 @@
  */
 package Panels;
 
+import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,10 @@ import layout.GeneratorControllerInterface;
  *
  * @author ernesto
  */
-public class ProffesorQuestions extends Questions {
+public class ProffesorQuestionsPanel extends QuestionsPanel {
     int questionTable_TEXTFIELD_WIDTH = 25;
     
-    public ProffesorQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
+    public ProffesorQuestionsPanel(GeneratorControllerInterface gci, QuestionType.type questionsType) {
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
    // con la fila
    

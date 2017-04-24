@@ -6,6 +6,7 @@
 package Panels;
 
 import InterfaceClasses.ModelTable;
+import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ import layout.GeneratorControllerInterface;
  *
  * @author ernesto
  */
-public class SubjectQuestions extends Questions{
+public class SubjectQuestionsPanel extends QuestionsPanel{
 
-    public SubjectQuestions(GeneratorControllerInterface gci, QuestionsType questionsType) {
+    public SubjectQuestionsPanel(GeneratorControllerInterface gci, QuestionType.type questionsType) {
    //inicializamos los componentes, creamos una Row para que el usuario introduzca datos, inicializamos la tabla
    // con la fila
         super(gci);

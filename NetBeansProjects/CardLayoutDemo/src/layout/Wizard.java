@@ -5,10 +5,11 @@
  */
 package layout;
 
-import Panels.ProffesorQuestions;
-import Panels.Questions;
-import Panels.SimpleQuestions;
-import Panels.SubjectQuestions;
+import InterfaceClasses.QuestionType;
+import Panels.ProffesorQuestionsPanel;
+import Panels.QuestionsPanel;
+import Panels.SimpleQuestionsPanel;
+import Panels.SubjectQuestionsPanel;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 
@@ -22,11 +23,11 @@ public class Wizard extends javax.swing.JPanel {
      * Creates new form Wizard
      */
     private GeneratorControllerInterface gci;
-    public SubjectQuestions     subjNumerical;
-    public SubjectQuestions     subjTextual;
-    public SimpleQuestions      proffEvaluated;
-    public ProffesorQuestions   proffNumerical;
-    public ProffesorQuestions   proffTextual;
+    public SubjectQuestionsPanel     subjNumerical;
+    public SubjectQuestionsPanel     subjTextual;
+    public SimpleQuestionsPanel      proffEvaluated;
+    public ProffesorQuestionsPanel   proffNumerical;
+    public ProffesorQuestionsPanel   proffTextual;
 
     public Wizard(){};
     
@@ -579,11 +580,11 @@ public class Wizard extends javax.swing.JPanel {
         
         for(int i = 1; i < tabbedPane.getTabCount(); i++) tabbedPane.setEnabledAt(i, false);
         
-        subjNumerical   = new SubjectQuestions(gci, Questions.QuestionsType.NUMERICAL);
-        subjTextual     = new SubjectQuestions(gci, Questions.QuestionsType.TEXTUAL);
-        proffEvaluated  = new SimpleQuestions(gci, Questions.QuestionsType.SIMPLE);
-        proffNumerical  = new ProffesorQuestions(gci, Questions.QuestionsType.NUMERICAL);
-        proffTextual    = new ProffesorQuestions(gci, Questions.QuestionsType.TEXTUAL);
+        subjNumerical   = new SubjectQuestionsPanel(gci, QuestionType.type.NUMERICAL);
+        subjTextual     = new SubjectQuestionsPanel(gci, QuestionType.type.TEXTUAL);
+        proffEvaluated  = new SimpleQuestionsPanel(gci, QuestionType.type.SIMPLE);
+        proffNumerical  = new ProffesorQuestionsPanel(gci, QuestionType.type.NUMERICAL);
+        proffTextual    = new ProffesorQuestionsPanel(gci, QuestionType.type.TEXTUAL);
 //        subjNumerical.loadExcel(gci.getExcelPath());
         wizard_tab1Panel.setLayout(new BorderLayout());
         wizard_tab1Panel.add(subjNumerical,BorderLayout.NORTH); 
