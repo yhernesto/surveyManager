@@ -6,13 +6,9 @@
 package layout;
 
 import InterfaceClasses.ModelTable;
-import InterfaceClasses.RowTable;
+import InterfaceClasses.Questions;
 import InterfaceClasses.Table;
-import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
-import Panels.SimpleQuestionsPanel;
-import Panels.SubjectQuestionsPanel;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -28,8 +24,7 @@ public interface GeneratorControllerInterface {
     void setExcelPath(String excelPath);
     void setCsvPath(String csvPath);
     void setReportPath(String reportPath);
-    void setProffesors(ArrayList<String> proffesors);
-    ArrayList<String> getProffesors();
+    Questions getProffesors();
     String getExcelPath();
     
     void loadExcelTable(String excelPath);

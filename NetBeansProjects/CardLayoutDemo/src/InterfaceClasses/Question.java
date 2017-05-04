@@ -11,9 +11,9 @@ package InterfaceClasses;
  */
 public class Question {
     String question;
-    QuestionType.type type;
     
     public Question(){
+        question = "";
     }
 
     public String getQuestion() {
@@ -22,14 +22,6 @@ public class Question {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public QuestionType.type getType() {
-        return type;
-    }
-
-    public void setType(QuestionType.type type) {
-        this.type = type;
     }
     
     

@@ -14,5 +14,6 @@ public class QuestionType{
     /**
      *
      */
+    public enum category {PROFFESOR, SUBJECT, SIMPLE, DEFAULT}
     public enum type {NUMERICAL, TEXTUAL, SIMPLE};
 }

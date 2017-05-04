@@ -15,6 +15,11 @@ public class ProffesorQuestion extends Question{
     public ArrayList<String> proffesors;
     public ArrayList<String> answers;
 
+    public ProffesorQuestion() {
+        this.proffesors = new ArrayList<String>();
+        this.answers    = new ArrayList<String>();
+    }
+    
     public ArrayList<String> getProffesors() {
         return proffesors;
     }
@@ -31,5 +36,19 @@ public class ProffesorQuestion extends Question{
         this.answers = answers;
     }
     
+    public void addProffesor(String proffesor){
+        this.proffesors.add(proffesor);
+    }
     
+    public String getProffesor(int ord){
+        return this.proffesors.get(ord);
+    }
+    
+    public void addAnswer(String answer){
+        this.answers.add(answer);
+    }
+    
+    public String getAnswer(int ord){
+        return this.answers.get(ord);
+    }
 }

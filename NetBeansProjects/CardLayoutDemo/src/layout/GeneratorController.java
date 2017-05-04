@@ -6,8 +6,12 @@
 package layout;
 
 import InterfaceClasses.ModelTable;
+import InterfaceClasses.ProffesorQuestion;
+import InterfaceClasses.Question;
 import InterfaceClasses.QuestionType;
+import InterfaceClasses.Questions;
 import InterfaceClasses.RowTable;
+import InterfaceClasses.SubjectQuestion;
 import InterfaceClasses.Table;
 import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
@@ -92,52 +96,96 @@ public class GeneratorController implements GeneratorControllerInterface{
         questionTable.updateTable(questionTableModel);
     };
 
-    public void setProffesors(ArrayList<String> proffesors) {
-        gmi.setEvaluatedProffesors(proffesors);
-    }
-
-    public ArrayList<String> getProffesors() {
+    
+        
+    public Questions getProffesors(){
         return gmi.getEvaluatedProffesors();
     }
-
-//    public void updateEvaluatedProffesors(SimpleQuestionsPanel evaluatedProffesors){
-//        gview.wizard.proffNumerical.clearData();
-//        gview.wizard.proffTextual.clearData();
-//        
-//        setProffesors(evaluatedProffesors.getProffesors());
-//        
-//        gview.wizard.proffNumerical.myInitComponents();
-//        gview.wizard.proffTextual.myInitComponents();   
-//    }
     
-    public void updateTableData(QuestionsPanel questionsAndAnswers){
-        if(questionsAndAnswers.getClass() == SubjectQuestionsPanel.class){
-            SubjectQuestionsPanel subjQuestions = (SubjectQuestionsPanel) questionsAndAnswers;
-            if(subjQuestions.getQUESTION_TYPE() == QuestionType.type.NUMERICAL){
-                gmi.setSubjectNumericalQuestions(subjQuestions.getQuestions());
-                gmi.setSubjectNumericalAnswers(subjQuestions.getAnswers());
-            }else if(subjQuestions.getQUESTION_TYPE() == QuestionType.type.TEXTUAL){
-                gmi.setSubjectTextualQuestions(subjQuestions.getQuestions());
-                gmi.setSubjectTextualAnswers(subjQuestions.getAnswers());                
+        
+//        if(questionsAndAnswers.getClass() == SubjectQuestionsPanel.class){
+//            SubjectQuestionsPanel subjQuestionsPanel = (SubjectQuestionsPanel) questionsAndAnswers;
+//            if(subjQuestionsPanel.getTYPE() == QuestionType.type.NUMERICAL){
+//                SubjectQuestion subjQuestion = new SubjectQuestion();
+//                
+//                gmi.setSubjectNumericalData(subjQuestionsPanel.getQuestions());
+////                gmi.setSubjectNumericalAnswers(subjQuestions.getAnswers());
+//            }else if(subjQuestionsPanel.getTYPE() == QuestionType.type.TEXTUAL){
+//                gmi.setSubjectTextualData(subjQuestionsPanel.getQuestions());
+////                gmi.setSubjectTextualAnswers(subjQuestions.getAnswers());                
+//            }
+//        }else if (questionsAndAnswers.getClass() == ProffesorQuestionsPanel.class){
+//            ProffesorQuestionsPanel proffQuestionsPanel = (ProffesorQuestionsPanel) questionsAndAnswers;
+//            if(proffQuestionsPanel.getTYPE() == QuestionType.type.NUMERICAL){
+//                gmi.setProffesorNumericalData(proffQuestionsPanel.getQuestions());
+////                gmi.setProffesorNumericalAnswers(proffQuestions.getAnswers());
+//            }else if(proffQuestionsPanel.getTYPE() == QuestionType.type.TEXTUAL){
+//                gmi.setProffesorTextualData(proffQuestionsPanel.getQuestions());
+////                gmi.setProffesorTextualAnswers(proffQuestions.getAnswers());                
+//            }
+//        }else if(questionsAndAnswers.getClass() == SimpleQuestionsPanel.class){
+//            SimpleQuestionsPanel simpleQuestionsPanel = (SimpleQuestionsPanel) questionsAndAnswers;
+//            if(simpleQuestionsPanel.getTYPE() == QuestionType.type.SIMPLE){
+//                clearProffesorsData();
+//                gmi.setEvaluatedProffesors(simpleQuestionsPanel.getQuestions());
+//                updateProffesorsData();
+//            };
+//        }
+    
+    
+    public void updateTableData(QuestionsPanel questionPanel){
+        Questions questions = new Questions(questionPanel.getCategory(), questionPanel.getType());
+        ArrayList<String>   questionsRawData = questionPanel.getQuestions();
+        ArrayList<String>   answersRawData = questionPanel.getAnswers();
+        if(questionPanel.getCategory() == QuestionType.category.SUBJECT){
+            SubjectQuestion     subjectQuestion;
+            for(int i = 0; i < questionPanel.getQuestions().size(); i++){
+                subjectQuestion = new SubjectQuestion();
+                subjectQuestion.setQuestion(questionsRawData.get(i));
+                subjectQuestion.setAnswer(answersRawData.get(i));
+                questions.add(subjectQuestion);
             }
-        }else if (questionsAndAnswers.getClass() == ProffesorQuestionsPanel.class){
-            ProffesorQuestionsPanel proffQuestions = (ProffesorQuestionsPanel) questionsAndAnswers;
-            if(proffQuestions.getQUESTION_TYPE() == QuestionType.type.NUMERICAL){
-                gmi.setProffesorNumericalQuestions(proffQuestions.getQuestions());
-                gmi.setProffesorNumericalAnswers(proffQuestions.getAnswers());
-            }else if(proffQuestions.getQUESTION_TYPE() == QuestionType.type.TEXTUAL){
-                gmi.setProffesorTextualQuestions(proffQuestions.getQuestions());
-                gmi.setProffesorTextualAnswers(proffQuestions.getAnswers());                
+            if(questionPanel.getType() == QuestionType.type.NUMERICAL){
+                gmi.setSubjectNumericalData(questions);
+            }else if(questionPanel.getType() == QuestionType.type.TEXTUAL){
+                gmi.setSubjectTextualData(questions);
             }
-        }else if(questionsAndAnswers.getClass() == SimpleQuestionsPanel.class){
-            SimpleQuestionsPanel simpleQuestions = (SimpleQuestionsPanel) questionsAndAnswers;
-            if(simpleQuestions.getQUESTION_TYPE() == QuestionType.type.SIMPLE){
+        }else if(questionPanel.getCategory() == QuestionType.category.PROFFESOR){
+            ProffesorQuestion   proffesorQuestion;
+            int index;
+            int proffesorsSize = gmi.getEvaluatedProffesors().getQuestions().size();
+            for(int i = 0; i < questionPanel.getQuestions().size(); i++){
+                proffesorQuestion = new ProffesorQuestion();
+                proffesorQuestion.setQuestion(questionPanel.getQuestions().get(i));
+                for(int j = 0; j < (proffesorsSize * i); j++){
+                    index = (proffesorsSize * i) + j;
+                    proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
+                    proffesorQuestion.addAnswer(answersRawData.get(index));
+                }
+                questions.add(proffesorQuestion);
+            }
+            if(questionPanel.getType() == QuestionType.type.NUMERICAL){
+                gmi.setProffesorNumericalData(questions);
+            }else if(questionPanel.getType() == QuestionType.type.TEXTUAL){
+                gmi.setProffesorTextualData(questions);
+            }
+        }else{
+            //CATEGORY == SIMPLE or DEFAULT
+            Question    simpleQuestion;
+             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
+                simpleQuestion = new SubjectQuestion();
+                simpleQuestion.setQuestion(questionsRawData.get(i));
+                questions.add(simpleQuestion);
+            }
+            if(questionPanel.getType() == QuestionType.type.SIMPLE){
                 clearProffesorsData();
-                gmi.setEvaluatedProffesors(simpleQuestions.getQuestions());
+                gmi.setEvaluatedProffesors(questions);
                 updateProffesorsData();
-            };
+            }
         }
     }
+        
+    
     
     public void clearProffesorsData(){
         gview.wizard.proffNumerical.clearData();

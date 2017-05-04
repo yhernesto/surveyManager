@@ -162,10 +162,11 @@ public class QuestionsPanel extends javax.swing.JPanel {
     public  ModelTable questionTableModel;
     public GeneratorControllerInterface gci;
     private final int excelTable_MAX_ROWS_TO_SHOW = 10;
-    public final int QUESTIONS_TEXTFIELD_WIDTH = 20;
+    public final int QUESTIONS_TEXTFIELD_WIDTH = 20; 
     public final int ANSWERS_TEXTFIELD_WIDTH = 3;
     private String rowTitle = "Pregunta ";
-    public QuestionType.type QUESTION_TYPE;
+    private QuestionType.type type;
+    private QuestionType.category category;
 
     
 //    private GeneratorControllerInterface gci;
@@ -178,7 +179,8 @@ public class QuestionsPanel extends javax.swing.JPanel {
     }
 
     public void initGeneralComponents(GeneratorControllerInterface gci, QuestionType.type questionsType) {
-        this.QUESTION_TYPE = questionsType;
+        this.type = questionsType;
+        this.category = QuestionType.category.DEFAULT;
         this.gci = gci;
         questionTableModel   =   new ModelTable();
         questionTableModel.mustNotBeEmpty(true);
@@ -293,8 +295,8 @@ public class QuestionsPanel extends javax.swing.JPanel {
         rowTitle = title;
     }
 
-    public QuestionType.type getQUESTION_TYPE() {
-        return QUESTION_TYPE;
+    public QuestionType.type getType() {
+        return type;
     }
     
     public ArrayList<String> getQuestions(){
@@ -340,4 +342,14 @@ public class QuestionsPanel extends javax.swing.JPanel {
             }
         }
     }
+
+    public QuestionType.category getCategory() {
+        return category;
+    }
+
+    public void setCategory(QuestionType.category category) {
+        this.category = category;
+    }
+
+    
 }

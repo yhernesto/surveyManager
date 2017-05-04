@@ -29,6 +29,7 @@ public class SubjectQuestionsPanel extends QuestionsPanel{
     }
     
     private void myInitComponents(){
+        setCategory(QuestionType.category.SUBJECT);
         questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
         questionTableInit(questionTableModel);
     }

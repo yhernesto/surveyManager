@@ -12,6 +12,12 @@ package InterfaceClasses;
 public class SubjectQuestion extends Question{
     public String answer;
 
+    public SubjectQuestion() {
+        this.answer = "";
+    }
+    
+    
+
     public String getAnswer() {
         return answer;
     }

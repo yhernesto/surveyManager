@@ -5,7 +5,9 @@
  */
 package layout;
 
-import java.util.ArrayList;
+import InterfaceClasses.Question;
+import InterfaceClasses.QuestionType;
+import InterfaceClasses.Questions;
 
 /**
  * @author ernesto
@@ -14,15 +16,11 @@ public class GeneratorModel implements GeneratorModelInterface{
     private String  excelPath;
     private String  csvPath;
     private String  reportPath;
-    private ArrayList<String>   evaluatedProffesors;
-    private ArrayList<String>   subjectNumericalQuestions;
-    private ArrayList<String>   subjectTextualQuestions;
-    private ArrayList<String>   proffesorNumericalQuestions;
-    private ArrayList<String>   proffesorTextualQuestions;
-    private ArrayList<String>   subjectNumericalAnswers;
-    private ArrayList<String>   subjectTextualAnswers;
-    private ArrayList<String>   proffesorNumericalAnswers;
-    private ArrayList<String>   proffesorTextualAnswers;
+    private Questions evaluatedProffesors;
+    private Questions subjectNumericalData  = new Questions(QuestionType.category.SUBJECT, QuestionType.type.NUMERICAL);
+    private Questions subjectTextualData    = new Questions(QuestionType.category.SUBJECT, QuestionType.type.TEXTUAL);
+    private Questions proffesorNumericalData= new Questions(QuestionType.category.PROFFESOR, QuestionType.type.NUMERICAL);
+    private Questions proffesorTextualData  = new Questions(QuestionType.category.PROFFESOR, QuestionType.type.TEXTUAL);
     
     public void setExcelPath(String excelPath){
         this.excelPath  = excelPath;
@@ -40,79 +38,59 @@ public class GeneratorModel implements GeneratorModelInterface{
         return this.excelPath;
     }
     
-    public ArrayList<String> getEvaluatedProffesors(){
+    public Questions getEvaluatedProffesors(){
         if(evaluatedProffesors == null) {
-            evaluatedProffesors = new ArrayList();
-            evaluatedProffesors.add("");
+            evaluatedProffesors = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
+            Question evaluatedProffesor = new Question();
+            evaluatedProffesors.add(evaluatedProffesor);
         }
         return evaluatedProffesors;
     }
     
-    public void setEvaluatedProffesors(ArrayList<String> evaluatedProffesors){
+    public Question getEvaluatedProffesor(int ord){
+        if(evaluatedProffesors == null) {
+            evaluatedProffesors = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
+            Question evaluatedProffesor = new Question();
+            evaluatedProffesors.add(evaluatedProffesor);
+        }
+        return evaluatedProffesors.getQuestions().get(ord);
+    }
+
+    public Questions getSubjectNumericalData() {
+        return subjectNumericalData;
+    }
+
+    public void setSubjectNumericalData(Questions subjectNumericalData) {
+        this.subjectNumericalData = subjectNumericalData;
+    }
+
+    public Questions getSubjectTextualData() {
+        return subjectTextualData;
+    }
+
+    public void setSubjectTextualData(Questions subjectTextualData) {
+        this.subjectTextualData = subjectTextualData;
+    }
+
+    public Questions getProffesorNumericalData() {
+        return proffesorNumericalData;
+    }
+
+    public void setProffesorNumericalData(Questions proffesorNumericalData) {
+        this.proffesorNumericalData = proffesorNumericalData;
+    }
+
+    public Questions getProffesorTextualData() {
+        return proffesorTextualData;
+    }
+
+    public void setProffesorTextualData(Questions proffesorTextualData) {
+        this.proffesorTextualData = proffesorTextualData;
+    }
+
+    public void setEvaluatedProffesors(Questions evaluatedProffesors){
         this.evaluatedProffesors = evaluatedProffesors;
     }
+    
 
-    public ArrayList<String> getSubjectNumericalQuestions() {
-        return subjectNumericalQuestions;
-    }
-
-    public void setSubjectNumericalQuestions(ArrayList<String> subjectNumericalQuestions) {
-        this.subjectNumericalQuestions = subjectNumericalQuestions;
-    }
-
-    public ArrayList<String> getSubjectTextualQuestions() {
-        return subjectTextualQuestions;
-    }
-
-    public void setSubjectTextualQuestions(ArrayList<String> subjectTextualQuestions) {
-        this.subjectTextualQuestions = subjectTextualQuestions;
-    }
-
-    public ArrayList<String> getProffesorNumericalQuestions() {
-        return proffesorNumericalQuestions;
-    }
-
-    public void setProffesorNumericalQuestions(ArrayList<String> proffesorNumericalQuestions) {
-        this.proffesorNumericalQuestions = proffesorNumericalQuestions;
-    }
-
-    public ArrayList<String> getProffesorTextualQuestions() {
-        return proffesorTextualQuestions;
-    }
-
-    public void setProffesorTextualQuestions(ArrayList<String> proffesorTextualQuestions) {
-        this.proffesorTextualQuestions = proffesorTextualQuestions;
-    }    
-
-    public ArrayList<String> getSubjectNumericalAnswers() {
-        return subjectNumericalAnswers;
-    }
-
-    public void setSubjectNumericalAnswers(ArrayList<String> subjectNumericalAnswers) {
-        this.subjectNumericalAnswers = subjectNumericalAnswers;
-    }
-
-    public ArrayList<String> getSubjectTextualAnswers() {
-        return subjectTextualAnswers;
-    }
-
-    public void setSubjectTextualAnswers(ArrayList<String> subjectTextualAnswers) {
-        this.subjectTextualAnswers = subjectTextualAnswers;
-    }
-
-    public ArrayList<String> getProffesorNumericalAnswers() {
-        return proffesorNumericalAnswers;
-    }
-
-    public void setProffesorNumericalAnswers(ArrayList<String> proffesorNumericalAnswers) {
-        this.proffesorNumericalAnswers = proffesorNumericalAnswers;
-    }
-
-    public ArrayList<String> getProffesorTextualAnswers() {
-        return proffesorTextualAnswers;
-    }
-
-    public void setProffesorTextualAnswers(ArrayList<String> proffesorTextualAnswers) {
-        this.proffesorTextualAnswers = proffesorTextualAnswers;
-    }
 }

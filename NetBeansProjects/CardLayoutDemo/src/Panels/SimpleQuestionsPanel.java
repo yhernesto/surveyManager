@@ -25,6 +25,7 @@ public class SimpleQuestionsPanel extends QuestionsPanel {
     }
     
     private void myInitComponents(){
+        setCategory(QuestionType.category.SIMPLE);
         rowTitleSetText("");
         questionTableCenterHeader.setText("Nombre de los Profesores: ");
         questionTableModel.addRowTable(questionsTableAddRow(questionTableModel.getTotalRows()));
