@@ -15,8 +15,6 @@ import InterfaceClasses.SubjectQuestion;
 import InterfaceClasses.Table;
 import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
-import Panels.SimpleQuestionsPanel;
-import Panels.SubjectQuestionsPanel;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
@@ -102,36 +100,6 @@ public class GeneratorController implements GeneratorControllerInterface{
         return gmi.getEvaluatedProffesors();
     }
     
-        
-//        if(questionsAndAnswers.getClass() == SubjectQuestionsPanel.class){
-//            SubjectQuestionsPanel subjQuestionsPanel = (SubjectQuestionsPanel) questionsAndAnswers;
-//            if(subjQuestionsPanel.getTYPE() == QuestionType.type.NUMERICAL){
-//                SubjectQuestion subjQuestion = new SubjectQuestion();
-//                
-//                gmi.setSubjectNumericalData(subjQuestionsPanel.getQuestions());
-////                gmi.setSubjectNumericalAnswers(subjQuestions.getAnswers());
-//            }else if(subjQuestionsPanel.getTYPE() == QuestionType.type.TEXTUAL){
-//                gmi.setSubjectTextualData(subjQuestionsPanel.getQuestions());
-////                gmi.setSubjectTextualAnswers(subjQuestions.getAnswers());                
-//            }
-//        }else if (questionsAndAnswers.getClass() == ProffesorQuestionsPanel.class){
-//            ProffesorQuestionsPanel proffQuestionsPanel = (ProffesorQuestionsPanel) questionsAndAnswers;
-//            if(proffQuestionsPanel.getTYPE() == QuestionType.type.NUMERICAL){
-//                gmi.setProffesorNumericalData(proffQuestionsPanel.getQuestions());
-////                gmi.setProffesorNumericalAnswers(proffQuestions.getAnswers());
-//            }else if(proffQuestionsPanel.getTYPE() == QuestionType.type.TEXTUAL){
-//                gmi.setProffesorTextualData(proffQuestionsPanel.getQuestions());
-////                gmi.setProffesorTextualAnswers(proffQuestions.getAnswers());                
-//            }
-//        }else if(questionsAndAnswers.getClass() == SimpleQuestionsPanel.class){
-//            SimpleQuestionsPanel simpleQuestionsPanel = (SimpleQuestionsPanel) questionsAndAnswers;
-//            if(simpleQuestionsPanel.getTYPE() == QuestionType.type.SIMPLE){
-//                clearProffesorsData();
-//                gmi.setEvaluatedProffesors(simpleQuestionsPanel.getQuestions());
-//                updateProffesorsData();
-//            };
-//        }
-    
     
     public void updateTableData(QuestionsPanel questionPanel){
         Questions questions = new Questions(questionPanel.getCategory(), questionPanel.getType());
@@ -157,7 +125,7 @@ public class GeneratorController implements GeneratorControllerInterface{
             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
                 proffesorQuestion = new ProffesorQuestion();
                 proffesorQuestion.setQuestion(questionPanel.getQuestions().get(i));
-                for(int j = 0; j < (proffesorsSize * i); j++){
+                for(int j = 0; j < proffesorsSize ; j++){
                     index = (proffesorsSize * i) + j;
                     proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
                     proffesorQuestion.addAnswer(answersRawData.get(index));
@@ -200,4 +168,27 @@ public class GeneratorController implements GeneratorControllerInterface{
         gview.wizard.proffNumerical.myInitComponents();
         gview.wizard.proffTextual.myInitComponents();
     }
+    
+    public void loadResumen(){
+        gview.wizard.resumen.myInitComponents();
+    }
+    
+    public Questions getEvaluatedProffesors(){
+        return gmi.getEvaluatedProffesors();
+    };
+    
+    public Questions getSubjectNumericalData(){
+        return gmi.getSubjectNumericalData();
+    };
+    
+    public Questions getSubjectTextualData(){
+        return gmi.getSubjectTextualData();
+    };
+    public Questions getProffesorNumericalData(){
+        return gmi.getProffesorNumericalData();
+    };
+    
+    public Questions getProffesorTextualData(){
+        return gmi.getProffesorTextualData();
+    };
 }

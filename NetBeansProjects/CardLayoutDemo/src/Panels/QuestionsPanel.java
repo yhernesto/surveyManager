@@ -168,14 +168,9 @@ public class QuestionsPanel extends javax.swing.JPanel {
     private QuestionType.type type;
     private QuestionType.category category;
 
-    
-//    private GeneratorControllerInterface gci;
-//    private GeneratorModelInterface gmi;
-
 
     public QuestionsPanel(GeneratorControllerInterface gci) {
         initComponents();
-//        myInitComponentes(gci);
     }
 
     public void initGeneralComponents(GeneratorControllerInterface gci, QuestionType.type questionsType) {

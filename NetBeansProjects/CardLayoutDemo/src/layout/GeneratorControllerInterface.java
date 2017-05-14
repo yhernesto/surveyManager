@@ -33,4 +33,10 @@ public interface GeneratorControllerInterface {
     void updateTableData(QuestionsPanel questionsAndAnswers);
     void clearProffesorsData();
     void updateProffesorsData();
+    void loadResumen();
+    Questions getEvaluatedProffesors();
+    Questions getSubjectNumericalData();
+    Questions getSubjectTextualData();
+    Questions getProffesorNumericalData();
+    Questions getProffesorTextualData();
 }

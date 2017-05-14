@@ -7,7 +7,7 @@ package layout;
 
 import InterfaceClasses.QuestionType;
 import Panels.ProffesorQuestionsPanel;
-import Panels.QuestionsPanel;
+import Panels.Resumen;
 import Panels.SimpleQuestionsPanel;
 import Panels.SubjectQuestionsPanel;
 import java.awt.BorderLayout;
@@ -23,11 +23,12 @@ public class Wizard extends javax.swing.JPanel {
      * Creates new form Wizard
      */
     private GeneratorControllerInterface gci;
-    public SubjectQuestionsPanel     subjNumerical;
-    public SubjectQuestionsPanel     subjTextual;
-    public SimpleQuestionsPanel      proffEvaluated;
-    public ProffesorQuestionsPanel   proffNumerical;
-    public ProffesorQuestionsPanel   proffTextual;
+    public SubjectQuestionsPanel    subjNumerical;
+    public SubjectQuestionsPanel    subjTextual;
+    public SimpleQuestionsPanel     proffEvaluated;
+    public ProffesorQuestionsPanel  proffNumerical;
+    public ProffesorQuestionsPanel  proffTextual;
+    public Resumen                  resumen;
 
     public Wizard(){};
     
@@ -49,6 +50,7 @@ public class Wizard extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tabbedPane = new javax.swing.JTabbedPane();
         wizard_tab1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -84,6 +86,10 @@ public class Wizard extends javax.swing.JPanel {
         tab5_save = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
         tab5_edit = new javax.swing.JButton();
+        wizard_tab6 = new javax.swing.JPanel();
+        jSeparator6 = new javax.swing.JSeparator();
+        tab6_run = new javax.swing.JButton();
+        wizard_tab6Panel = new javax.swing.JPanel();
 
         jButton1.setText("jButton1");
 
@@ -463,6 +469,52 @@ public class Wizard extends javax.swing.JPanel {
 
         tabbedPane.addTab("Profesor 3", jPanel4);
 
+        tab6_run.setText("Crear reportes");
+        tab6_run.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tab6_runActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout wizard_tab6PanelLayout = new javax.swing.GroupLayout(wizard_tab6Panel);
+        wizard_tab6Panel.setLayout(wizard_tab6PanelLayout);
+        wizard_tab6PanelLayout.setHorizontalGroup(
+            wizard_tab6PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        wizard_tab6PanelLayout.setVerticalGroup(
+            wizard_tab6PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout wizard_tab6Layout = new javax.swing.GroupLayout(wizard_tab6);
+        wizard_tab6.setLayout(wizard_tab6Layout);
+        wizard_tab6Layout.setHorizontalGroup(
+            wizard_tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wizard_tab6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(wizard_tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(wizard_tab6Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator6)
+                    .addGroup(wizard_tab6Layout.createSequentialGroup()
+                        .addGap(0, 425, Short.MAX_VALUE)
+                        .addComponent(tab6_run)))
+                .addContainerGap())
+        );
+        wizard_tab6Layout.setVerticalGroup(
+            wizard_tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(wizard_tab6Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(wizard_tab6Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tab6_run)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Resumen", wizard_tab6);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -548,6 +600,7 @@ public class Wizard extends javax.swing.JPanel {
         // TODO add your handling code here:
         gci.updateTableData(proffTextual);
         proffTextual.setEnabled(false);
+        gci.loadResumen();
         gci.nextButton((JButton) evt.getSource(), tabbedPane);
         tab5_edit.setEnabled(true);
         tab5_save.setEnabled(false);
@@ -572,6 +625,10 @@ public class Wizard extends javax.swing.JPanel {
         proffTextual.setEnabled(true);
         tab5_save.setEnabled(true);
     }//GEN-LAST:event_tab5_editActionPerformed
+
+    private void tab6_runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab6_runActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tab6_runActionPerformed
     
     
     
@@ -585,6 +642,8 @@ public class Wizard extends javax.swing.JPanel {
         proffEvaluated  = new SimpleQuestionsPanel(gci, QuestionType.type.SIMPLE);
         proffNumerical  = new ProffesorQuestionsPanel(gci, QuestionType.type.NUMERICAL);
         proffTextual    = new ProffesorQuestionsPanel(gci, QuestionType.type.TEXTUAL);
+        resumen         = new Resumen(gci);
+        
 //        subjNumerical.loadExcel(gci.getExcelPath());
         wizard_tab1Panel.setLayout(new BorderLayout());
         wizard_tab1Panel.add(subjNumerical,BorderLayout.NORTH); 
@@ -596,6 +655,8 @@ public class Wizard extends javax.swing.JPanel {
         wizard_tab4Panel.add(proffNumerical,BorderLayout.NORTH); 
         wizard_tab5Panel.setLayout(new BorderLayout());
         wizard_tab5Panel.add(proffTextual,BorderLayout.NORTH); 
+        wizard_tab6Panel.setLayout(new BorderLayout());
+        wizard_tab6Panel.add(resumen); 
         
         tab1_edit.setEnabled(false);
         tab2_edit.setEnabled(false);
@@ -619,11 +680,13 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton tab1_edit;
     private javax.swing.JButton tab1_save;
@@ -639,6 +702,7 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JButton tab5_back;
     private javax.swing.JButton tab5_edit;
     public javax.swing.JButton tab5_save;
+    private javax.swing.JButton tab6_run;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JPanel wizard_tab1;
     private javax.swing.JPanel wizard_tab1Panel;
@@ -646,5 +710,7 @@ public class Wizard extends javax.swing.JPanel {
     private javax.swing.JPanel wizard_tab3Panel;
     private javax.swing.JPanel wizard_tab4Panel;
     private javax.swing.JPanel wizard_tab5Panel;
+    private javax.swing.JPanel wizard_tab6;
+    private javax.swing.JPanel wizard_tab6Panel;
     // End of variables declaration//GEN-END:variables
 }

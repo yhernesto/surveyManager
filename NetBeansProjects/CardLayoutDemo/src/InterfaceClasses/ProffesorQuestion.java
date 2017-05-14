@@ -51,4 +51,5 @@ public class ProffesorQuestion extends Question{
     public String getAnswer(int ord){
         return this.answers.get(ord);
     }
+
 }
