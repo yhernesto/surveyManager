@@ -207,16 +207,15 @@ public class QuestionsPanel extends javax.swing.JPanel {
         excelTable.setModel(model);
         excelTable = excelTableLoad(excelTable, excelPath);
         jScrollPane2.setViewportView(excelTable);
-        
     }
     
     public JTable excelTableLoad(JTable excelTable, String path) {
-        
-            excelTable.setFocusable(false);
-            excelTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
-            excelTable.setCellSelectionEnabled(true);
-            NonEditableModel model = (NonEditableModel) excelTable.getModel();
+
+        excelTable.setFocusable(false);
+        excelTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        excelTable.setCellSelectionEnabled(true);
+        NonEditableModel model = (NonEditableModel) excelTable.getModel();
         try {
             File file = new File(path);
             Workbook excel  = Workbook.getWorkbook(file);
@@ -224,13 +223,13 @@ public class QuestionsPanel extends javax.swing.JPanel {
             int columns     = hoja.getColumns();
             int rows       = hoja.getRows();            
             String  data    = null;
-            
+
             if(rows >= excelTable_MAX_ROWS_TO_SHOW) rows = excelTable_MAX_ROWS_TO_SHOW;       //If the excel has more than 10 rows then we show 10 rows 
-            
+
             for(int i=0; i < columns; i++){
                 model.addColumn(getColumnReference(i));
             }
-            
+
             for(int f = 0; f < rows; f++){
                 model.addRow(new Object[0]);
                 for(int c = 0; c < excelTable_MAX_ROWS_TO_SHOW; c++){
@@ -238,8 +237,8 @@ public class QuestionsPanel extends javax.swing.JPanel {
                     model.setValueAt(data, f, c);
                 };
             }
-            
-            
+
+
         } catch (IOException ex) {
             Logger.getLogger(QuestionsPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (BiffException ex) {

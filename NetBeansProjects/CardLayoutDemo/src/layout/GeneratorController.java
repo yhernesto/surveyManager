@@ -16,6 +16,7 @@ import InterfaceClasses.Table;
 import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -101,10 +102,14 @@ public class GeneratorController implements GeneratorControllerInterface{
     }
     
     
-    public void updateTableData(QuestionsPanel questionPanel){
+    public int updateTableData(QuestionsPanel questionPanel){
+        int error = 0;
         Questions questions = new Questions(questionPanel.getCategory(), questionPanel.getType());
         ArrayList<String>   questionsRawData = questionPanel.getQuestions();
         ArrayList<String>   answersRawData = questionPanel.getAnswers();
+        if((error = checkData(questionsRawData)) != 0) return error;
+        if((error = checkData(answersRawData)) != 0) return error;
+        
         if(questionPanel.getCategory() == QuestionType.category.SUBJECT){
             SubjectQuestion     subjectQuestion;
             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
@@ -124,7 +129,7 @@ public class GeneratorController implements GeneratorControllerInterface{
             int proffesorsSize = gmi.getEvaluatedProffesors().getQuestions().size();
             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
                 proffesorQuestion = new ProffesorQuestion();
-                proffesorQuestion.setQuestion(questionPanel.getQuestions().get(i));
+                proffesorQuestion.setQuestion(questionsRawData.get(i));
                 for(int j = 0; j < proffesorsSize ; j++){
                     index = (proffesorsSize * i) + j;
                     proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
@@ -151,6 +156,21 @@ public class GeneratorController implements GeneratorControllerInterface{
                 updateProffesorsData();
             }
         }
+        return error;
+    }
+    
+    private int checkData(ArrayList<String> questions){
+        // error = 1 -> blank TextField or full of whitespaces only
+        int error = 0;
+        Iterator iterator;
+        String  data;
+        
+        iterator = questions.iterator();
+        while(iterator.hasNext() && error == 0){
+            data = (String) iterator.next();
+            if(data.equals("") || data.trim().isEmpty()) error = 1;
+        }  
+        return error;
     }
         
     

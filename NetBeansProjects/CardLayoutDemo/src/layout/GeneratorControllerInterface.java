@@ -30,7 +30,7 @@ public interface GeneratorControllerInterface {
     void loadExcelTable(String excelPath);
     void questions_buttonAdd(Table questionTable,ModelTable questionTableModel);
     void question_buttonRemove(Table questionTable,ModelTable questionTableModel);
-    void updateTableData(QuestionsPanel questionsAndAnswers);
+    int updateTableData(QuestionsPanel questionsAndAnswers);
     void clearProffesorsData();
     void updateProffesorsData();
     void loadResumen();
