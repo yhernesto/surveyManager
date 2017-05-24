@@ -8,6 +8,8 @@ package Panels;
 import InterfaceClasses.QuestionType;
 import InterfaceClasses.Questions;
 import InterfaceClasses.RowTable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -68,7 +70,7 @@ public class ProffesorQuestionsPanel extends QuestionsPanel {
             JLabel emptySpace2 = new JLabel(" ");
             JLabel proffesorName    = new JLabel(profesores.getQuestions().get(i).getQuestion());
             JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
-
+            maxCharacters(answerColumn,ANSWERS_TEXTFIELD_WIDTH);
             row.addComponent(emptySpace);
             row.addComponent(emptySpace1);
             row.addComponent(emptySpace2);

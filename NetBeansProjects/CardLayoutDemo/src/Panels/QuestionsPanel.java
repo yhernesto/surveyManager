@@ -13,6 +13,8 @@ import InterfaceClasses.Table;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -171,6 +173,10 @@ public class QuestionsPanel extends javax.swing.JPanel {
 
     public QuestionsPanel(GeneratorControllerInterface gci) {
         initComponents();
+    }
+    
+    public QuestionsPanel(){
+        
     }
 
     public void initGeneralComponents(GeneratorControllerInterface gci, QuestionType.type questionsType) {
@@ -345,5 +351,14 @@ public class QuestionsPanel extends javax.swing.JPanel {
         this.category = category;
     }
 
+    public void maxCharacters(JTextField textField, int max){   
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (textField.getText().length() >= max ) // limit to 3 characters
+                    e.consume();
+            }
+        });
+    }
     
 }

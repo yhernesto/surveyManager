@@ -9,6 +9,7 @@ import InterfaceClasses.ModelTable;
 import InterfaceClasses.Questions;
 import InterfaceClasses.Table;
 import Panels.QuestionsPanel;
+import Utils.PanelDataException;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -30,7 +31,7 @@ public interface GeneratorControllerInterface {
     void loadExcelTable(String excelPath);
     void questions_buttonAdd(Table questionTable,ModelTable questionTableModel);
     void question_buttonRemove(Table questionTable,ModelTable questionTableModel);
-    int updateTableData(QuestionsPanel questionsAndAnswers);
+    void updateTableData(QuestionsPanel questionsAndAnswers)throws PanelDataException;
     void clearProffesorsData();
     void updateProffesorsData();
     void loadResumen();

@@ -6,10 +6,6 @@
 package Panels;
 
 import InterfaceClasses.QuestionType;
-import InterfaceClasses.RowTable;
-import java.awt.Component;
-import java.util.ArrayList;
-import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
 
 /**

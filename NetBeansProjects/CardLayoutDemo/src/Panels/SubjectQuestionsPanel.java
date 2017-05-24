@@ -5,11 +5,8 @@
  */
 package Panels;
 
-import InterfaceClasses.ModelTable;
 import InterfaceClasses.QuestionType;
 import InterfaceClasses.RowTable;
-import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
@@ -44,8 +41,8 @@ public class SubjectQuestionsPanel extends QuestionsPanel{
         JTextField question = new JTextField();
         question.setColumns(QUESTIONS_TEXTFIELD_WIDTH);
 
-        JTextField answerColumn = new JTextField(3);
-
+        JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
+        maxCharacters(answerColumn,ANSWERS_TEXTFIELD_WIDTH);
         RowTable row    = new RowTable();
         row.addComponent(questionNumber);
         row.addComponent(question);

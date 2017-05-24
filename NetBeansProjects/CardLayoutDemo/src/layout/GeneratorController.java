@@ -15,6 +15,7 @@ import InterfaceClasses.SubjectQuestion;
 import InterfaceClasses.Table;
 import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
+import Utils.PanelDataException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JButton;
@@ -102,13 +103,15 @@ public class GeneratorController implements GeneratorControllerInterface{
     }
     
     
-    public int updateTableData(QuestionsPanel questionPanel){
-        int error = 0;
+    public void updateTableData(QuestionsPanel questionPanel) throws PanelDataException{
         Questions questions = new Questions(questionPanel.getCategory(), questionPanel.getType());
         ArrayList<String>   questionsRawData = questionPanel.getQuestions();
         ArrayList<String>   answersRawData = questionPanel.getAnswers();
-        if((error = checkData(questionsRawData)) != 0) return error;
-        if((error = checkData(answersRawData)) != 0) return error;
+        Integer[]      error = checkData(questionsRawData);
+        if(error[0] != 0) throw new PanelDataException("Falta ingresar la pregunta en la fila: " + error[1].toString());
+        error = checkData(answersRawData);
+        if(error[0] == 1) throw new PanelDataException("Falta ingresar la columna de respuesta en la fila: " + error[1].toString());
+        if(error[0] == 2) throw new PanelDataException("La columna de respuesta no es alfanumérica: " + error[1].toString());
         
         if(questionPanel.getCategory() == QuestionType.category.SUBJECT){
             SubjectQuestion     subjectQuestion;
@@ -145,7 +148,7 @@ public class GeneratorController implements GeneratorControllerInterface{
         }else{
             //CATEGORY == SIMPLE or DEFAULT
             Question    simpleQuestion;
-             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
+            for(int i = 0; i < questionPanel.getQuestions().size(); i++){
                 simpleQuestion = new SubjectQuestion();
                 simpleQuestion.setQuestion(questionsRawData.get(i));
                 questions.add(simpleQuestion);
@@ -156,21 +159,31 @@ public class GeneratorController implements GeneratorControllerInterface{
                 updateProffesorsData();
             }
         }
-        return error;
     }
     
-    private int checkData(ArrayList<String> questions){
+    private Integer[] checkData(ArrayList<String> questions){
         // error = 1 -> blank TextField or full of whitespaces only
-        int error = 0;
+        // error = 2 -> TextField value is not alphanumeric
+        int error = 0, cont = 0;
+        QuestionsPanel auxPanel = new QuestionsPanel();
+        Integer[] errorData = {0,0};
         Iterator iterator;
         String  data;
         
         iterator = questions.iterator();
-        while(iterator.hasNext() && error == 0){
+        while(iterator.hasNext() && errorData[0] == 0){
             data = (String) iterator.next();
-            if(data.equals("") || data.trim().isEmpty()) error = 1;
+            if(data.equals("") || data.trim().isEmpty()) {
+                errorData[0] = 1;
+            }else if(data.length() == auxPanel.ANSWERS_TEXTFIELD_WIDTH){
+                if(data.matches("^.*[^a-zA-Z0-9 ].*$")){
+                    errorData[0] = 2;
+                }
+            }
+            if(errorData[0] != 0) errorData[1] = cont;
+            cont++;
         }  
-        return error;
+        return errorData;
     }
         
     

@@ -10,8 +10,10 @@ import Panels.ProffesorQuestionsPanel;
 import Panels.Resumen;
 import Panels.SimpleQuestionsPanel;
 import Panels.SubjectQuestionsPanel;
+import Utils.PanelDataException;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -521,7 +523,7 @@ public class Wizard extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,13 +536,17 @@ public class Wizard extends javax.swing.JPanel {
 
     
     private void tab3_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab3_saveActionPerformed
-        // TODO add your handling code here:
-        gci.updateTableData(proffEvaluated);
-        proffEvaluated.setEnabled(false);
-        gci.nextButton((JButton) evt.getSource(), tabbedPane);
-        tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex() + 1, false);  //inhabilitamos proffTextual
-        tab3_edit.setEnabled(true);
-        tab3_save.setEnabled(false);
+        try {
+            gci.updateTableData(proffEvaluated);
+            proffEvaluated.setEnabled(false);
+            gci.nextButton((JButton) evt.getSource(), tabbedPane);
+            tabbedPane.setEnabledAt(tabbedPane.getSelectedIndex() + 1, false);  //inhabilitamos proffTextual
+            tab3_edit.setEnabled(true);
+            tab3_save.setEnabled(false);
+        } catch (PanelDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tab3_saveActionPerformed
 
     private void tab3_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab3_backActionPerformed
@@ -550,25 +556,36 @@ public class Wizard extends javax.swing.JPanel {
 
     private void tab1_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab1_saveActionPerformed
         // TODO add your handling code here:
-        gci.updateTableData(subjNumerical);
-        subjNumerical.setEnabled(false);
-        gci.nextButton((JButton) evt.getSource(), tabbedPane);
-        tab1_edit.setEnabled(true);
-        tab1_save.setEnabled(false);
+        try{
+            gci.updateTableData(subjNumerical);
+            subjNumerical.setEnabled(false);
+            gci.nextButton((JButton) evt.getSource(), tabbedPane);
+            tab1_edit.setEnabled(true);
+            tab1_save.setEnabled(false);
+        } catch (PanelDataException ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+        }      
+
     }//GEN-LAST:event_tab1_saveActionPerformed
 
     private void tab2_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab2_backActionPerformed
-        // TODO add your handling code here:
+
         gci.previousButton((JButton) evt.getSource(), tabbedPane);
     }//GEN-LAST:event_tab2_backActionPerformed
 
     private void tab2_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab2_saveActionPerformed
-        // TODO add your handling code here:
-        gci.updateTableData(subjTextual);
-        subjTextual.setEnabled(false);
-        gci.nextButton((JButton) evt.getSource(), tabbedPane);
-        tab2_edit.setEnabled(true);
-        tab2_save.setEnabled(false);
+        try {
+            // TODO add your handling code here:
+            gci.updateTableData(subjTextual);
+            subjTextual.setEnabled(false);
+            gci.nextButton((JButton) evt.getSource(), tabbedPane);
+            tab2_edit.setEnabled(true);
+            tab2_save.setEnabled(false);
+        } catch (PanelDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tab2_saveActionPerformed
 
     private void tab1_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab1_editActionPerformed
@@ -583,12 +600,17 @@ public class Wizard extends javax.swing.JPanel {
     }//GEN-LAST:event_tab4_backActionPerformed
 
     private void tab4_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab4_saveActionPerformed
-        // TODO add your handling code here:
-        gci.updateTableData(proffNumerical);
-        proffNumerical.setEnabled(false);
-        gci.nextButton((JButton) evt.getSource(), tabbedPane);
-        tab4_edit.setEnabled(true);
-        tab4_save.setEnabled(false);
+        try {
+            // TODO add your handling code here:
+            gci.updateTableData(proffNumerical);
+            proffNumerical.setEnabled(false);
+            gci.nextButton((JButton) evt.getSource(), tabbedPane);
+            tab4_edit.setEnabled(true);
+            tab4_save.setEnabled(false);
+        } catch (PanelDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tab4_saveActionPerformed
 
     private void tab5_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab5_backActionPerformed
@@ -597,13 +619,18 @@ public class Wizard extends javax.swing.JPanel {
     }//GEN-LAST:event_tab5_backActionPerformed
 
     private void tab5_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab5_saveActionPerformed
-        // TODO add your handling code here:
-        gci.updateTableData(proffTextual);
-        proffTextual.setEnabled(false);
-        gci.loadResumen();
-        gci.nextButton((JButton) evt.getSource(), tabbedPane);
-        tab5_edit.setEnabled(true);
-        tab5_save.setEnabled(false);
+        try {
+            // TODO add your handling code here:
+            gci.updateTableData(proffTextual);
+            proffTextual.setEnabled(false);
+            gci.loadResumen();
+            gci.nextButton((JButton) evt.getSource(), tabbedPane);
+            tab5_edit.setEnabled(true);
+            tab5_save.setEnabled(false);
+        } catch (PanelDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tab5_saveActionPerformed
 
     private void tab3_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab3_editActionPerformed
