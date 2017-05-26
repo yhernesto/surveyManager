@@ -6,7 +6,7 @@
 package Panels;
 
 import InterfaceClasses.ProffesorQuestion;
-import InterfaceClasses.QuestionType;
+import InterfaceClasses.Question;
 import InterfaceClasses.Questions;
 import InterfaceClasses.SubjectQuestion;
 import static Panels.Resumen.RIGHT_TO_LEFT;
@@ -16,9 +16,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import layout.GeneratorControllerInterface;
 
 /**
@@ -98,7 +98,6 @@ public class Resumen extends javax.swing.JPanel {
          if (RIGHT_TO_LEFT) {
             panel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
-        Questions  evaluatedProffesors = gci.getEvaluatedProffesors();
         Questions subjectNumericalData  = gci.getSubjectNumericalData();
         Questions subjectTextualData    = gci.getSubjectTextualData();
         Questions proffesorNumericalData= gci.getProffesorNumericalData();
@@ -192,23 +191,24 @@ public class Resumen extends javax.swing.JPanel {
 
         /************** data *************/
         ProffesorQuestion proffQuestion;
-        for(int i = 0; i < proffesorNumericalData.size(); i++){            
+        
+        for(Question question : proffesorNumericalData.getQuestions()){
             nextLine();
-            proffQuestion = (ProffesorQuestion) proffesorNumericalData.getQuestions().get(i);
+            proffQuestion = (ProffesorQuestion) question;
             data = proffQuestion.getQuestion();
             if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
             questionLabel = new JLabel(data);
             add(0,H,questionLabel,panel);
-            for(int x = 0; x < evaluatedProffesors.size(); x++){
-                questionLabel = new JLabel(proffQuestion.getProffesor(x));
+            for(Map.Entry<String, String> entry : proffQuestion.getProffesorsAnswers().entrySet()) {
+                questionLabel = new JLabel(entry.getKey());
                 if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
                 add(1,H,questionLabel,panel);
-                questionLabel = new JLabel(proffQuestion.getAnswer(x));
+                questionLabel = new JLabel(entry.getValue());
                 add(2,H,questionLabel,panel);
                 nextLine();
             }
         }
-
+        
         // TEXTUALES
         // Título
         nextLine();
@@ -225,59 +225,57 @@ public class Resumen extends javax.swing.JPanel {
         add(2,H3,label,panel);
 
          /************** data *************/
-        for(int i = 0; i < proffesorTextualData.size(); i++){            
+         for(Question question : proffesorTextualData.getQuestions()){
             nextLine();
-            proffQuestion = (ProffesorQuestion) proffesorTextualData.getQuestions().get(i);
+            proffQuestion = (ProffesorQuestion) question;
             data = proffQuestion.getQuestion();
             if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
             questionLabel = new JLabel(data);
             add(0,H,questionLabel,panel);
-            for(int x = 0; x < evaluatedProffesors.size(); x++){
-                questionLabel = new JLabel(proffQuestion.getProffesor(x));
+            for(Map.Entry<String, String> entry : proffQuestion.getProffesorsAnswers().entrySet()) {
+                questionLabel = new JLabel(entry.getKey());
                 if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
                 add(1,H,questionLabel,panel);
-                questionLabel = new JLabel(proffQuestion.getAnswer(x));
+                questionLabel = new JLabel(entry.getValue());
                 add(2,H,questionLabel,panel);
                 nextLine();
             }
-        }
-        
+         }        
         scrollPane.add(panel);
         scrollPane.setViewportView(panel);
     }
         
-           private void add(int x, int style, Component com, Container panell){
+    private void add(int x, int style, Component com, Container panell){
+        css((JLabel) com, style);         
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = x;
+        c.gridy = currentY;
+        panell.add(com, c);   
+    }
 
-            css((JLabel) com, style);         
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.weightx = 0.5;
-            c.gridx = x;
-            c.gridy = currentY;
-            panell.add(com, c);   
-        }
+    private void nextLine(){
+        currentY++;
+    }
 
-        private void nextLine(){
-            currentY++;
+    private void css(JLabel label, int style){
+        switch (style){
+            case H:
+                label.setFont(new Font("arial", Font.PLAIN, 11));
+                break;
+            case H1:
+                label.setFont(new Font("arial", Font.ITALIC + Font.BOLD, 22));
+                break;
+            case H2:
+                label.setFont(new Font("arial", Font.BOLD, 18));
+                break;
+            case H3:
+                label.setFont(new Font("arial", Font.BOLD, 14));
+                break;
+            default:
+                break;
         }
-
-        private void css(JLabel label, int style){
-            switch (style){
-                case H:
-                    label.setFont(new Font("arial", Font.PLAIN, 11));
-                    break;
-                case H1:
-                    label.setFont(new Font("arial", Font.ITALIC + Font.BOLD, 22));
-                    break;
-                case H2:
-                    label.setFont(new Font("arial", Font.BOLD, 18));
-                    break;
-                case H3:
-                    label.setFont(new Font("arial", Font.BOLD, 14));
-                    break;
-                default:
-                    break;
-            }
-        }
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

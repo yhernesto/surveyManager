@@ -135,8 +135,9 @@ public class GeneratorController implements GeneratorControllerInterface{
                 proffesorQuestion.setQuestion(questionsRawData.get(i));
                 for(int j = 0; j < proffesorsSize ; j++){
                     index = (proffesorsSize * i) + j;
-                    proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
-                    proffesorQuestion.addAnswer(answersRawData.get(index));
+                    proffesorQuestion.addProffesorAnswers(gmi.getEvaluatedProffesor(j).getQuestion(), answersRawData.get(index));
+//                    proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
+//                    proffesorQuestion.addAnswer(answersRawData.get(index));
                 }
                 questions.add(proffesorQuestion);
             }
