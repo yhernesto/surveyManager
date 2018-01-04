@@ -6,30 +6,28 @@
 package InterfaceClasses;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
  * @author ernesto
  */
 public class ProffesorQuestion extends Question{
-    private HashMap<String, String> proffesorsAnswers;
+    private ArrayList<String> proffesorsAnswers;
 
     public ProffesorQuestion() {
-        proffesorsAnswers = new HashMap<String, String>();
+        proffesorsAnswers = new ArrayList<>();
     }
     
-
-    public HashMap<String, String> getProffesorsAnswers() {
+    public ArrayList<String> getProffesorsAnswers() {
         return proffesorsAnswers;
     }
 
-    public void setProffesorsAnswers(HashMap<String, String> proffesorsAnswers) {
+    public void setProffesorsAnswers(ArrayList<String> proffesorsAnswers) {
         this.proffesorsAnswers = proffesorsAnswers;
     }
 
-    public void addProffesorAnswers(String proffesor, String answer){
-        this.proffesorsAnswers.put(proffesor, answer);
+    public void addProffesorAnswers(String answer){
+        this.proffesorsAnswers.add(answer);
     }
     
 }
