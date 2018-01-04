@@ -6,6 +6,9 @@
 package Panels;
 
 import InterfaceClasses.QuestionType;
+import InterfaceClasses.RowTable;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
 
 /**
@@ -28,5 +31,14 @@ public class SimpleQuestionsPanel extends QuestionsPanel {
         questionTableInit(questionTableModel);
     }
     
+    public RowTable questionsTableAddRow(int tableSize){
+        JLabel  questionNumber  = new JLabel("Profesor " + Integer.toString(tableSize + 1) + ":");
+        JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
+        maxCharacters(answerColumn,ANSWERS_TEXTFIELD_WIDTH);
+        RowTable row    = new RowTable();
+        row.addComponent(questionNumber);
+        row.addComponent(answerColumn);
+        return row;
+    }
     
 }

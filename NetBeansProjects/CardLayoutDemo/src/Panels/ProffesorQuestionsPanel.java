@@ -8,10 +8,6 @@ package Panels;
 import InterfaceClasses.QuestionType;
 import InterfaceClasses.Questions;
 import InterfaceClasses.RowTable;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import layout.GeneratorControllerInterface;
@@ -43,12 +39,11 @@ public class ProffesorQuestionsPanel extends QuestionsPanel {
     public void questionsTableAddRow(int tableSize, Questions profesores){
         System.out.println("tamaño de profesores: " + profesores.getQuestions().size());
         JLabel  questionNumber  = new JLabel(Integer.toString(tableSize + 1) + ":");
-        JTextField question     = new JTextField();
+        JTextField question     = new JTextField(QUESTIONS_TEXTFIELD_WIDTH);
         JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
-        question.setColumns(QUESTIONS_TEXTFIELD_WIDTH);
         JLabel emptySpace   = new JLabel("  ");
 
-        JLabel proffesorName    = new JLabel(profesores.getQuestions().get(0).getQuestion());
+        JLabel proffesorName    = new JLabel("Profesor 1: ");
         
         RowTable row    = new RowTable();
         row.addComponent(questionNumber);
@@ -68,7 +63,7 @@ public class ProffesorQuestionsPanel extends QuestionsPanel {
             JLabel emptySpace = new JLabel(" ");
             JLabel emptySpace1 = new JLabel(" ");
             JLabel emptySpace2 = new JLabel(" ");
-            JLabel proffesorName    = new JLabel(profesores.getQuestions().get(i).getQuestion());
+            JLabel proffesorName    = new JLabel("Profesor " + (i+1));
             JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
             maxCharacters(answerColumn,ANSWERS_TEXTFIELD_WIDTH);
             row.addComponent(emptySpace);

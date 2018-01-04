@@ -164,6 +164,7 @@ public class QuestionsPanel extends javax.swing.JPanel {
     public  ModelTable questionTableModel;
     public GeneratorControllerInterface gci;
     private final int excelTable_MAX_ROWS_TO_SHOW = 10;
+    private final int excelTable_MAX_COLUMNS_TO_SHOW = 18;
     public final int QUESTIONS_TEXTFIELD_WIDTH = 20; 
     public final int ANSWERS_TEXTFIELD_WIDTH = 3;
     private String rowTitle = "Pregunta ";
@@ -238,7 +239,7 @@ public class QuestionsPanel extends javax.swing.JPanel {
 
             for(int f = 0; f < rows; f++){
                 model.addRow(new Object[0]);
-                for(int c = 0; c < excelTable_MAX_ROWS_TO_SHOW; c++){
+                for(int c = 0; c < excelTable_MAX_COLUMNS_TO_SHOW; c++){
                     data   = hoja.getCell(c,f).getContents();
                     model.setValueAt(data, f, c);
                 };

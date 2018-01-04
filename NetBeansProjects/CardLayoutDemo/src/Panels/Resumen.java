@@ -16,7 +16,6 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
 import layout.GeneratorControllerInterface;
@@ -191,21 +190,21 @@ public class Resumen extends javax.swing.JPanel {
 
         /************** data *************/
         ProffesorQuestion proffQuestion;
-        
         for(Question question : proffesorNumericalData.getQuestions()){
+            int cont = 1;
             nextLine();
             proffQuestion = (ProffesorQuestion) question;
             data = proffQuestion.getQuestion();
             if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
             questionLabel = new JLabel(data);
             add(0,H,questionLabel,panel);
-            for(Map.Entry<String, String> entry : proffQuestion.getProffesorsAnswers().entrySet()) {
-                questionLabel = new JLabel(entry.getKey());
-                if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
+            for(String profAnswers : proffQuestion.getProffesorsAnswers()) {
+                questionLabel = new JLabel("Profesor " + cont + ": " );
                 add(1,H,questionLabel,panel);
-                questionLabel = new JLabel(entry.getValue());
+                questionLabel = new JLabel(profAnswers);
                 add(2,H,questionLabel,panel);
                 nextLine();
+                cont++;
             }
         }
         
@@ -226,19 +225,21 @@ public class Resumen extends javax.swing.JPanel {
 
          /************** data *************/
          for(Question question : proffesorTextualData.getQuestions()){
+            int cont = 1;
             nextLine();
             proffQuestion = (ProffesorQuestion) question;
             data = proffQuestion.getQuestion();
             if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
             questionLabel = new JLabel(data);
             add(0,H,questionLabel,panel);
-            for(Map.Entry<String, String> entry : proffQuestion.getProffesorsAnswers().entrySet()) {
-                questionLabel = new JLabel(entry.getKey());
-                if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
+            for(String answer : proffQuestion.getProffesorsAnswers()) {
+                questionLabel = new JLabel("Profesor " + cont + ": " );
+//                if(data.length() > questionLength) data = data.substring(0, questionLength - 1) + " ";
                 add(1,H,questionLabel,panel);
-                questionLabel = new JLabel(entry.getValue());
+                questionLabel = new JLabel(answer);
                 add(2,H,questionLabel,panel);
                 nextLine();
+                cont++;
             }
          }        
         scrollPane.add(panel);
