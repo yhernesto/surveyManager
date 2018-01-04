@@ -5,6 +5,7 @@
  */
 package layout;
 
+import GeneratorClasses.Proffesor;
 import InterfaceClasses.ProffesorQuestion;
 import InterfaceClasses.Question;
 import InterfaceClasses.Questions;
@@ -21,9 +22,11 @@ public interface GeneratorModelInterface {
     void setCsvPath(String csvPath);
     void setReportPath(String reportPath);
     String getExcelPath();
-    Questions getEvaluatedProffesors();
+    String getCsvPath();
+    String getReportsPath();
+    Questions getProffesorsColName();
     Question getEvaluatedProffesor(int ord);
-    void setEvaluatedProffesors(Questions proffesors);
+    void setProffesorsColName(Questions proffesors);
     Questions getSubjectNumericalData();
     void setSubjectNumericalData(Questions subjectNumericalData);
     Questions getSubjectTextualData();
@@ -32,5 +35,5 @@ public interface GeneratorModelInterface {
     void setProffesorNumericalData(Questions proffesorNumericalData);
     Questions getProffesorTextualData();
     void setProffesorTextualData(Questions proffesorTextualData);
-
+    void addProffesor(Proffesor proffesor);
 }

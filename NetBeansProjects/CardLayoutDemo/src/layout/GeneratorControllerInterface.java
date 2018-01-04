@@ -5,11 +5,13 @@
  */
 package layout;
 
+import GeneratorClasses.Proffesor;
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.Questions;
 import InterfaceClasses.Table;
 import Panels.QuestionsPanel;
 import Utils.PanelDataException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -40,4 +42,5 @@ public interface GeneratorControllerInterface {
     Questions getSubjectTextualData();
     Questions getProffesorNumericalData();
     Questions getProffesorTextualData();
+    void generateReports();
 }

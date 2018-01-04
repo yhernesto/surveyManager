@@ -474,7 +474,7 @@ public class Wizard extends javax.swing.JPanel {
         tab6_run.setText("Crear reportes");
         tab6_run.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tab6_runActionPerformed(evt);
+                tab6_generateReports(evt);
             }
         });
 
@@ -653,9 +653,10 @@ public class Wizard extends javax.swing.JPanel {
         tab5_save.setEnabled(true);
     }//GEN-LAST:event_tab5_editActionPerformed
 
-    private void tab6_runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab6_runActionPerformed
+    private void tab6_generateReports(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab6_generateReports
         // TODO add your handling code here:
-    }//GEN-LAST:event_tab6_runActionPerformed
+        gci.generateReports();
+    }//GEN-LAST:event_tab6_generateReports
     
     
     

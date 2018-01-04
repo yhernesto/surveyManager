@@ -5,9 +5,13 @@
  */
 package layout;
 
+import GeneratorClasses.Proffesor;
+import GeneratorClasses.Subject;
 import InterfaceClasses.Question;
 import InterfaceClasses.QuestionType;
 import InterfaceClasses.Questions;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ernesto
@@ -16,11 +20,13 @@ public class GeneratorModel implements GeneratorModelInterface{
     private String  excelPath;
     private String  csvPath;
     private String  reportPath;
-    private Questions evaluatedProffesors;
+    private Questions proffesorsName;
     private Questions subjectNumericalData  = new Questions(QuestionType.category.SUBJECT, QuestionType.type.NUMERICAL);
     private Questions subjectTextualData    = new Questions(QuestionType.category.SUBJECT, QuestionType.type.TEXTUAL);
     private Questions proffesorNumericalData= new Questions(QuestionType.category.PROFFESOR, QuestionType.type.NUMERICAL);
     private Questions proffesorTextualData  = new Questions(QuestionType.category.PROFFESOR, QuestionType.type.TEXTUAL);
+    private List<Proffesor> proffesors      = new ArrayList<Proffesor>();
+    private List<Subject> subjects      = new ArrayList<Subject>();
     
     public void setExcelPath(String excelPath){
         this.excelPath  = excelPath;
@@ -37,23 +43,31 @@ public class GeneratorModel implements GeneratorModelInterface{
     public String getExcelPath(){
         return this.excelPath;
     }
+
+    public String getCsvPath() {
+        return csvPath;
+    }
+
+    public String getReportsPath() {
+        return reportPath;
+    }
     
-    public Questions getEvaluatedProffesors(){
-        if(evaluatedProffesors == null) {
-            evaluatedProffesors = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
+    public Questions getProffesorsColName(){
+        if(proffesorsName == null) {
+            proffesorsName = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
             Question evaluatedProffesor = new Question();
-            evaluatedProffesors.add(evaluatedProffesor);
+            proffesorsName.add(evaluatedProffesor);
         }
-        return evaluatedProffesors;
+        return proffesorsName;
     }
     
     public Question getEvaluatedProffesor(int ord){
-        if(evaluatedProffesors == null) {
-            evaluatedProffesors = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
+        if(proffesorsName == null) {
+            proffesorsName = new Questions(QuestionType.category.DEFAULT, QuestionType.type.SIMPLE);
             Question evaluatedProffesor = new Question();
-            evaluatedProffesors.add(evaluatedProffesor);
+            proffesorsName.add(evaluatedProffesor);
         }
-        return evaluatedProffesors.getQuestions().get(ord);
+        return proffesorsName.getQuestions().get(ord);
     }
 
     public Questions getSubjectNumericalData() {
@@ -88,9 +102,12 @@ public class GeneratorModel implements GeneratorModelInterface{
         this.proffesorTextualData = proffesorTextualData;
     }
 
-    public void setEvaluatedProffesors(Questions evaluatedProffesors){
-        this.evaluatedProffesors = evaluatedProffesors;
+    public void setProffesorsColName(Questions proffesorsName){
+        this.proffesorsName = proffesorsName;
     }
     
+    public void addProffesor(Proffesor proffesor){
+        this.proffesors.add(proffesor);
+    }
 
 }

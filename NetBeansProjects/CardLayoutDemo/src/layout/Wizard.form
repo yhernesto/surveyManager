@@ -648,7 +648,7 @@
                 <Property name="text" type="java.lang.String" value="Crear reportes"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tab6_runActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tab6_generateReports"/>
               </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="wizard_tab6Panel">

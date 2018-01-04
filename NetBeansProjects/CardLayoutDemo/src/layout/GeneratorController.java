@@ -5,22 +5,33 @@
  */
 package layout;
 
+import GeneratorClasses.Answers;
+import GeneratorClasses.NumericalAnswers;
+import GeneratorClasses.Proffesor;
+import GeneratorClasses.Report;
+import GeneratorClasses.Subject;
+import GeneratorClasses.SubjectsInformation;
 import InterfaceClasses.ModelTable;
 import InterfaceClasses.ProffesorQuestion;
 import InterfaceClasses.Question;
 import InterfaceClasses.QuestionType;
 import InterfaceClasses.Questions;
-import InterfaceClasses.RowTable;
 import InterfaceClasses.SubjectQuestion;
 import InterfaceClasses.Table;
-import Panels.ProffesorQuestionsPanel;
 import Panels.QuestionsPanel;
+import Utils.MathUtils;
 import Utils.PanelDataException;
+import documentClasses.WordDocument;
+import java.io.BufferedReader;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import jxl.*;
 
 /**
  *
@@ -99,7 +110,7 @@ public class GeneratorController implements GeneratorControllerInterface{
     
         
     public Questions getProffesors(){
-        return gmi.getEvaluatedProffesors();
+        return gmi.getProffesorsColName();
     }
     
     
@@ -129,15 +140,13 @@ public class GeneratorController implements GeneratorControllerInterface{
         }else if(questionPanel.getCategory() == QuestionType.category.PROFFESOR){
             ProffesorQuestion   proffesorQuestion;
             int index;
-            int proffesorsSize = gmi.getEvaluatedProffesors().getQuestions().size();
+            int proffesorsSize = gmi.getProffesorsColName().getQuestions().size();
             for(int i = 0; i < questionPanel.getQuestions().size(); i++){
                 proffesorQuestion = new ProffesorQuestion();
                 proffesorQuestion.setQuestion(questionsRawData.get(i));
                 for(int j = 0; j < proffesorsSize ; j++){
                     index = (proffesorsSize * i) + j;
-                    proffesorQuestion.addProffesorAnswers(gmi.getEvaluatedProffesor(j).getQuestion(), answersRawData.get(index));
-//                    proffesorQuestion.addProffesor(gmi.getEvaluatedProffesor(j).getQuestion());
-//                    proffesorQuestion.addAnswer(answersRawData.get(index));
+                    proffesorQuestion.addProffesorAnswers(answersRawData.get(index));
                 }
                 questions.add(proffesorQuestion);
             }
@@ -147,21 +156,21 @@ public class GeneratorController implements GeneratorControllerInterface{
                 gmi.setProffesorTextualData(questions);
             }
         }else{
-            //CATEGORY == SIMPLE or DEFAULT
+            //CATEGORY == SIMPLE or DEFAULT (Evaluated proffesors)
             Question    simpleQuestion;
-            for(int i = 0; i < questionPanel.getQuestions().size(); i++){
-                simpleQuestion = new SubjectQuestion();
-                simpleQuestion.setQuestion(questionsRawData.get(i));
+            for(int i = 0; i < questionPanel.getAnswers().size(); i++){
+                simpleQuestion = new Question();
+                simpleQuestion.setQuestion(answersRawData.get(i));
                 questions.add(simpleQuestion);
             }
             if(questionPanel.getType() == QuestionType.type.SIMPLE){
                 clearProffesorsData();
-                gmi.setEvaluatedProffesors(questions);
+                gmi.setProffesorsColName(questions);
                 updateProffesorsData();
             }
         }
     }
-    
+
     private Integer[] checkData(ArrayList<String> questions){
         // error = 1 -> blank TextField or full of whitespaces only
         // error = 2 -> TextField value is not alphanumeric
@@ -208,7 +217,7 @@ public class GeneratorController implements GeneratorControllerInterface{
     }
     
     public Questions getEvaluatedProffesors(){
-        return gmi.getEvaluatedProffesors();
+        return gmi.getProffesorsColName();
     };
     
     public Questions getSubjectNumericalData(){
@@ -225,4 +234,190 @@ public class GeneratorController implements GeneratorControllerInterface{
     public Questions getProffesorTextualData(){
         return gmi.getProffesorTextualData();
     };
+    
+    public void generateReports(){
+        /*
+            abrir pdf de datos por asignatura   --ok
+            Leer csv de respuestas
+                crear subject
+                llenar subject con datos para preguntas numéricas
+                llenar subject con datos para preguntas textuales
+                llenar profesor con datos para preguntas numéricas
+                llenar profesor con datos para preguntas textuales
+                llenar subject con información del pdf de asignaturas
+                crear reporte de asignatura
+            terminar de leer
+             */          
+//        initializeProffesors();
+        SubjectsInformation subjectsInformation = new SubjectsInformation(";", gmi.getCsvPath());
+        subjectsInformation.loadSubejctsInformation();
+        ArrayList<Report> reports = new ArrayList();
+        
+        String cod1="", cod2="", group1="", group2="";
+        
+        try {
+            Workbook archivoExcel = Workbook.getWorkbook(new File(gmi.getExcelPath()));
+            for (int sheetNo = 0; sheetNo < archivoExcel.getNumberOfSheets(); sheetNo++){   // Recorre cada hoja            
+                Sheet page = archivoExcel.getSheet(sheetNo);
+//                        data = hoja.getCell(columna, fila).getContents();
+                for(int indexRow = 1; indexRow < page.getRows(); indexRow++){              // Skipping the header line
+                    System.out.println("en la linea: " + indexRow);
+                    cod1 = page.getCell(0,indexRow).getContents();
+                    group1 = page.getCell(2,indexRow).getContents();
+                    if(!cod1.equals(cod2) || !group1.equals(group2)){
+                        Report report = new Report();
+                        Subject subject = new Subject(cod1, page.getCell(1,indexRow).getContents(), group1); //code, assignatureName, group
+                        // falta coger los valores del CSV de asignaturas
+                        subject.setEstudio(subjectsInformation.getDegree(cod1, group1));
+                        subject.setEnrolledStudents(subjectsInformation.getEnrolledStudents(cod1, group1));
+                        initializeSubject(subject);
+                        //inicializar las preguntas y array de respuestas de las asignaturas
+                        for(Question question : gmi.getProffesorsColName().getQuestions()){
+                            String colProffesorName = question.getQuestion();
+                            String proffName = page.getCell(Integer.valueOf(MathUtils.columnNameToInteger(colProffesorName)),indexRow).getContents();
+                            if(proffName != null && !proffName.trim().isEmpty() ){
+                                Proffesor proffesor = new Proffesor(proffName);
+                                //inicializar las preguntas de cada professor
+                                initializeProffesors(proffesor,report.getProfessors().size());
+                                report.addProffesor(proffesor);
+                            }
+                        }
+                        report.setSubject(subject);
+                        reports.add(report);
+                    }
+                    Report lastReport = reports.get(reports.size()-1);
+                    //Subject's answers
+//                    for(Question question : gmi.getSubjectTextualData().getQuestions()){
+//                        String subjTextualAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
+//                        lastReport.getSubject().addAnswer(subjTextualAnswer, Integer.valueOf(question.getQuestion()));
+//                    }
+//                    for(Question question : gmi.getSubjectNumericalData().getQuestions()){
+//                        String subjNumericalAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
+//                        lastReport.getSubject().addAnswer(subjNumericalAnswer, Integer.valueOf(question.getQuestion()));
+//                    }
+
+                    //Proffesor's answers
+//                    for(Question question : gmi.getProffesorTextualData().getQuestions()){
+//                        for(Proffesor proffesor : lastReport.getProfessors()){
+//                            String proffTextualAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
+//                            proffesor.addAnswer(proffTextualAnswer, Integer.valueOf(question.getQuestion()));
+//                        }
+//                    }
+//                    for(Question question : gmi.getProffesorNumericalData().getQuestions()){
+//                        for(Proffesor proffesor : lastReport.getProfessors()){
+//                            String proffNumericalAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
+//                            proffesor.addAnswer(proffNumericalAnswer, Integer.valueOf(question.getQuestion()));
+//                        }
+//                    }
+
+                    
+                    for(Answers numericalAnswers : lastReport.getSubject().getAnswers(QuestionType.type.NUMERICAL)){
+                        numericalAnswers.add(page.getCell(numericalAnswers.getColumn(), indexRow).getContents());
+                    }
+                    for(Answers textualAnswers : lastReport.getSubject().getAnswers(QuestionType.type.TEXTUAL)){
+                        textualAnswers.add(page.getCell(textualAnswers.getColumn(), indexRow).getContents());
+                    }
+                    
+                    //Proffessor's answers
+                    for(Proffesor proffesor : lastReport.getProfessors()){
+                        for(Answers numericalAnswers : proffesor.getAnswers(QuestionType.type.NUMERICAL)){
+                            numericalAnswers.add(page.getCell(numericalAnswers.getColumn(), indexRow).getContents());
+                        }
+                        for(Answers textualAnswers : proffesor.getAnswers(QuestionType.type.TEXTUAL)){
+                            textualAnswers.add(page.getCell(textualAnswers.getColumn(), indexRow).getContents());
+                        }                     
+                    }
+                    cod2 = cod1;
+                    group2 = group1;
+                }
+            }
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+        
+        
+        for(Report report : reports){
+            try {
+                for(Answers numericalAnswers : report.getSubject().getAnswers(QuestionType.type.NUMERICAL)){
+                    NumericalAnswers numAnswers = (NumericalAnswers) numericalAnswers;
+                    setStatisticalValues(numAnswers, report.getSubject().getEnrolledStudents());
+                };
+                for(Proffesor proffesor : report.getProfessors()){
+                    for(Answers numericalAnswers : proffesor.getAnswers(QuestionType.type.NUMERICAL)){
+                        NumericalAnswers numAnswers = (NumericalAnswers) numericalAnswers;
+                        setStatisticalValues(numAnswers, report.getSubject().getEnrolledStudents());
+                    }
+                };
+                
+                createReport(report);
+                System.out.println(report.toString());
+                
+            } catch (Exception ex) {
+                Logger.getLogger(GeneratorController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
+    }
+    
+    private void setStatisticalValues(NumericalAnswers numericalAnswers, Integer enrolledStudents){
+        NumericalAnswers numAnswers = (NumericalAnswers) numericalAnswers;
+        numAnswers.setMean(MathUtils.getMean(numAnswers.getAnswers()));
+        numAnswers.setMedian(MathUtils.getMedian(numAnswers.getAnswers()));
+        numAnswers.setVariance(MathUtils.getVariance(numAnswers.getAnswers(), numAnswers.getMedian()));
+        numAnswers.setMeanError(MathUtils.getMeanError(numAnswers.getAnswers(), numAnswers.getVariance(), enrolledStudents));
+    }
+    
+    private void initializeProffesors(Proffesor proffesor, int proffesorIndex){
+
+            for(Question question : gmi.getProffesorNumericalData().getQuestions()){
+                ProffesorQuestion proffNumericalQuestion = (ProffesorQuestion) question;
+                NumericalAnswers numericalAnswers = new NumericalAnswers();
+                numericalAnswers.setType(QuestionType.type.NUMERICAL);
+                numericalAnswers.setQuestion(proffNumericalQuestion.getQuestion());
+                numericalAnswers.setColumn(Integer.valueOf(MathUtils.columnNameToInteger(proffNumericalQuestion.getProffesorsAnswers().get(proffesorIndex))));
+                numericalAnswers.setAnswers(new ArrayList());
+                proffesor.addAnswers(numericalAnswers);
+                
+            }
+            for(Question question : gmi.getProffesorTextualData().getQuestions()){
+                ProffesorQuestion proffTextualQuestion = (ProffesorQuestion) question;
+                Answers textualAnswers = new Answers();
+                textualAnswers.setType(QuestionType.type.TEXTUAL);
+                textualAnswers.setQuestion(proffTextualQuestion.getQuestion());
+                textualAnswers.setColumn(Integer.valueOf(MathUtils.columnNameToInteger(proffTextualQuestion.getProffesorsAnswers().get(proffesorIndex))));
+                textualAnswers.setAnswers(new ArrayList());
+                proffesor.addAnswers(textualAnswers);
+            }
+    }
+    
+    private void initializeSubject(Subject subject){
+        for (Question subjNumQuestion : gmi.getSubjectNumericalData().getQuestions()){
+            SubjectQuestion subjQuestion = (SubjectQuestion) subjNumQuestion;
+            NumericalAnswers numericalAnswers = new NumericalAnswers();
+            numericalAnswers.setType(QuestionType.type.NUMERICAL);
+            numericalAnswers.setQuestion(subjQuestion.getQuestion());
+            numericalAnswers.setColumn(Integer.valueOf(MathUtils.columnNameToInteger(subjQuestion.getAnswer())));
+            numericalAnswers.setAnswers(new ArrayList());
+            subject.addAnswers(numericalAnswers);
+        }
+        for (Question subjTextQuestion : gmi.getSubjectTextualData().getQuestions()){
+            SubjectQuestion subjQuestion = (SubjectQuestion) subjTextQuestion;
+            Answers textualAnswers = new Answers();
+            textualAnswers.setType(QuestionType.type.TEXTUAL);
+            textualAnswers.setQuestion(subjQuestion.getQuestion());
+            textualAnswers.setColumn(Integer.valueOf(MathUtils.columnNameToInteger(subjQuestion.getAnswer())));
+            textualAnswers.setAnswers(new ArrayList());
+            subject.addAnswers(textualAnswers);
+        }
+        
+    }
+
+    private void createReport(Report report) throws Exception {
+        for (Proffesor proffesor : report.getProfessors()){
+            WordDocument wordDocument = new WordDocument(report.getSubject(), proffesor, gmi.getReportsPath());
+            wordDocument.generateDocument();
+        }
+    }
+    
 }
+
