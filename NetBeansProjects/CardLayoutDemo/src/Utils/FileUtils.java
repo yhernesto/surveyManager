@@ -5,6 +5,16 @@
  */
 package Utils;
 
+import documentClasses.Csv;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,7 +25,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FileUtils {
     
+    
     public FileUtils(){};
+    
+    String FIRST_LINE_STRING = "Pla d'estudis:";
     
     public String[] getFilePathAndName(JFileChooser fileChooser, String[] extension){
         String[] filePathAndName = {"",""};
@@ -36,5 +49,44 @@ public class FileUtils {
         return filePathAndName;
     }
     
+        
+    public void formatingCsv(String filePath, String csvSeparator){
+        String line;
+        String[] formatedLine;
+        try {
+            File file = new File(filePath);
+            File tempFile = File.createTempFile("subjects-", ".csv");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            PrintWriter pw = new PrintWriter(tempFile);
+            while((line = br.readLine()) != null){
+                if(line.lastIndexOf(FIRST_LINE_STRING) != line.indexOf(FIRST_LINE_STRING)){
+                    
+                    line = br.readLine();
+                }
+            }
+            br.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Csv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(Csv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Csv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        /* String text = "Hello world";
+        BufferedWriter output = null;
+        try {
+            File file = new File("example.txt");
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(text);
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        } finally {
+          if ( output != null ) {
+            output.close();
+          }
+        }
+        */
+    }
     
 }
