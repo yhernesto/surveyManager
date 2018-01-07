@@ -283,6 +283,7 @@ public class Landing extends javax.swing.JPanel {
         //*** solo para las pruebas y no tener que estar poniendo la url del excel cada vez
         gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls"); 
         gci.setCsvPath("/home/ernesto/getjobid.csv");
+        gci.setReportPath("/home/ernesto/NetBeansProjects/CardLayoutDemo/Reports/");
         gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
         //****
         gci.loadExcelTable(gci.getExcelPath());

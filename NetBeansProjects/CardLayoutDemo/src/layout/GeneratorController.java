@@ -270,46 +270,24 @@ public class GeneratorController implements GeneratorControllerInterface{
                         // falta coger los valores del CSV de asignaturas
                         subject.setEstudio(subjectsInformation.getDegree(cod1, group1));
                         subject.setEnrolledStudents(subjectsInformation.getEnrolledStudents(cod1, group1));
-                        initializeSubject(subject);
-                        //inicializar las preguntas y array de respuestas de las asignaturas
-                        for(Question question : gmi.getProffesorsColName().getQuestions()){
-                            String colProffesorName = question.getQuestion();
-                            String proffName = page.getCell(Integer.valueOf(MathUtils.columnNameToInteger(colProffesorName)),indexRow).getContents();
-                            if(proffName != null && !proffName.trim().isEmpty() ){
-                                Proffesor proffesor = new Proffesor(proffName);
-                                //inicializar las preguntas de cada professor
-                                initializeProffesors(proffesor,report.getProfessors().size());
-                                report.addProffesor(proffesor);
+                        if(subject.getEnrolledStudents() != null && subject.getEstudio() != null){
+                            initializeSubject(subject);
+                            //inicializar las preguntas y array de respuestas de las asignaturas
+                            for(Question question : gmi.getProffesorsColName().getQuestions()){
+                                String colProffesorName = question.getQuestion();
+                                String proffName = page.getCell(Integer.valueOf(MathUtils.columnNameToInteger(colProffesorName)),indexRow).getContents();
+                                if(proffName != null && !proffName.trim().isEmpty() ){
+                                    Proffesor proffesor = new Proffesor(proffName);
+                                    //inicializar las preguntas de cada professor
+                                    initializeProffesors(proffesor,report.getProfessors().size());
+                                    report.addProffesor(proffesor);
+                                }
                             }
+                            report.setSubject(subject);
+                            reports.add(report);
                         }
-                        report.setSubject(subject);
-                        reports.add(report);
                     }
                     Report lastReport = reports.get(reports.size()-1);
-                    //Subject's answers
-//                    for(Question question : gmi.getSubjectTextualData().getQuestions()){
-//                        String subjTextualAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
-//                        lastReport.getSubject().addAnswer(subjTextualAnswer, Integer.valueOf(question.getQuestion()));
-//                    }
-//                    for(Question question : gmi.getSubjectNumericalData().getQuestions()){
-//                        String subjNumericalAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
-//                        lastReport.getSubject().addAnswer(subjNumericalAnswer, Integer.valueOf(question.getQuestion()));
-//                    }
-
-                    //Proffesor's answers
-//                    for(Question question : gmi.getProffesorTextualData().getQuestions()){
-//                        for(Proffesor proffesor : lastReport.getProfessors()){
-//                            String proffTextualAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
-//                            proffesor.addAnswer(proffTextualAnswer, Integer.valueOf(question.getQuestion()));
-//                        }
-//                    }
-//                    for(Question question : gmi.getProffesorNumericalData().getQuestions()){
-//                        for(Proffesor proffesor : lastReport.getProfessors()){
-//                            String proffNumericalAnswer = page.getCell(Integer.valueOf(question.getQuestion()), indexRow).getContents();
-//                            proffesor.addAnswer(proffNumericalAnswer, Integer.valueOf(question.getQuestion()));
-//                        }
-//                    }
-
                     
                     for(Answers numericalAnswers : lastReport.getSubject().getAnswers(QuestionType.type.NUMERICAL)){
                         numericalAnswers.add(page.getCell(numericalAnswers.getColumn(), indexRow).getContents());
@@ -351,12 +329,11 @@ public class GeneratorController implements GeneratorControllerInterface{
                 
                 createReport(report);
                 System.out.println(report.toString());
-                
             } catch (Exception ex) {
                 Logger.getLogger(GeneratorController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    
+        gview.closeGUIAndProgram();    
     }
     
     private void setStatisticalValues(NumericalAnswers numericalAnswers, Integer enrolledStudents){
