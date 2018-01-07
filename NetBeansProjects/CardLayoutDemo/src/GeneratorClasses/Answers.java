@@ -57,7 +57,7 @@ public class Answers{
     }
     
     public void add(String obj){
-        if(obj != null){
+        if(obj != null && obj.trim().length() > 0){
             if(this.type == QuestionType.type.NUMERICAL){
                 try{
                     this.answers.add(Integer.valueOf(obj));    

@@ -211,7 +211,7 @@ public class WordDocument {
         BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wordMLPackage, bytes);
 
         Inline inline = imagePart.createImageInline(filenameHint, altText,
-                id1, id2, cx, false);
+                id1, id2, false);
 
         // Now add the inline in w:p/w:r/w:drawing
         org.docx4j.wml.ObjectFactory factory = Context.getWmlObjectFactory();

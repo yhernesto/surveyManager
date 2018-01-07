@@ -256,10 +256,12 @@ public class GeneratorController implements GeneratorControllerInterface{
         String cod1="", cod2="", group1="", group2="";
         
         try {
-            Workbook archivoExcel = Workbook.getWorkbook(new File(gmi.getExcelPath()));
+            WorkbookSettings workbookSettings = new WorkbookSettings();
+            workbookSettings.setEncoding("cp1250");
+            
+            Workbook archivoExcel = Workbook.getWorkbook(new File(gmi.getExcelPath()), workbookSettings);
             for (int sheetNo = 0; sheetNo < archivoExcel.getNumberOfSheets(); sheetNo++){   // Recorre cada hoja            
                 Sheet page = archivoExcel.getSheet(sheetNo);
-//                        data = hoja.getCell(columna, fila).getContents();
                 for(int indexRow = 1; indexRow < page.getRows(); indexRow++){              // Skipping the header line
                     System.out.println("en la linea: " + indexRow);
                     cod1 = page.getCell(0,indexRow).getContents();

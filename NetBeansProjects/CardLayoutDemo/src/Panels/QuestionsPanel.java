@@ -27,6 +27,7 @@ import javax.swing.ListSelectionModel;
 import static jxl.CellReferenceHelper.getColumnReference;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 import layout.GeneratorControllerInterface;
 
@@ -217,7 +218,9 @@ public class QuestionsPanel extends javax.swing.JPanel {
     }
     
     public JTable excelTableLoad(JTable excelTable, String path) {
-
+        WorkbookSettings workbookSettings = new WorkbookSettings();
+        workbookSettings.setEncoding("cp1250");
+        
         excelTable.setFocusable(false);
         excelTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -225,7 +228,7 @@ public class QuestionsPanel extends javax.swing.JPanel {
         NonEditableModel model = (NonEditableModel) excelTable.getModel();
         try {
             File file = new File(path);
-            Workbook excel  = Workbook.getWorkbook(file);
+            Workbook excel  = Workbook.getWorkbook(file, workbookSettings);
             Sheet hoja      = excel.getSheet(0);
             int columns     = hoja.getColumns();
             int rows       = hoja.getRows();            
