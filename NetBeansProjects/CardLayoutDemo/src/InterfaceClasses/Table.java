@@ -40,11 +40,8 @@ public class Table extends JPanel{
         this.removeAll();
 
         if(logicTable != null){
-            System.out.println("la tabla lógica no es null");
             this.logicTable = logicTable;
             if(logicTable.rows != null || !logicTable.getRows().isEmpty()){
-                System.out.println("la tabla lógica tiene contenido: \n"
-                    + " filas: " + this.logicTable.rows.size() + "\n");
                 for(RowTable row : this.logicTable.getRows()){
                     addComponents(row);
                 }    

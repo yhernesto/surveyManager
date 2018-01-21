@@ -53,7 +53,6 @@ public class ModelTable {
     }
    
     
-    
     public void removeRowTable(int i){
         if(i < rows.size()){
             if(mustNotBeEmpty){
@@ -90,6 +89,10 @@ public class ModelTable {
     
     public int getTotalRows(){
         return rows.size();
+    }
+    
+    public void setEmpty(){
+        rows.clear();
     }
 
 }

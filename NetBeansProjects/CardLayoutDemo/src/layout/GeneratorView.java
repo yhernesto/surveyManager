@@ -12,6 +12,7 @@ public class GeneratorView implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     Landing landing;
     Wizard wizard;
+    JFrame frame;
     final static String LANDING = "landing";
     final static String WIZARD = "wizard";
     static GeneratorControllerInterface gci;
@@ -48,7 +49,7 @@ public class GeneratorView implements ItemListener {
 
     public void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("CardLayoutDemo");
+        frame = new JFrame("CardLayoutDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          
         //Create and set up the content pane.
@@ -58,6 +59,17 @@ public class GeneratorView implements ItemListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+    }
+    
+    public void closeGUIAndProgram(){
+        frame.setVisible(false);
+        frame.dispose();
+    // if you have other similar frames around, you should dispose them, too.
+
+    // finally, call this to really exit. 
+    // i/o libraries such as WiiRemoteJ need this. 
+    // also, this is what swing does for JFrame.EXIT_ON_CLOSE
+        System.exit(0); 
     }
     
 }

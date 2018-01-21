@@ -5,8 +5,6 @@
  */
 package layout;
 
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
