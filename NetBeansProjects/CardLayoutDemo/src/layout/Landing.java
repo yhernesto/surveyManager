@@ -22,8 +22,8 @@ public class Landing extends javax.swing.JPanel {
     /**
      * Creates new form Landing
      */
-    GeneratorControllerInterface gci;
-    FileUtils fileUtils;
+    private GeneratorControllerInterface gci;
+    private FileUtils fileUtils;
     public Landing(GeneratorControllerInterface gti) {
         this.gci = gti;
         fileUtils = new FileUtils();
@@ -281,35 +281,33 @@ public class Landing extends javax.swing.JPanel {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.next(cards);
         //*** solo para las pruebas y no tener que estar poniendo la url del excel cada vez
-        gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls"); 
-        gci.setCsvPath("/home/ernesto/getjobid.csv");
-        gci.setReportPath("/home/ernesto/NetBeansProjects/CardLayoutDemo/Reports/");
-        gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
+//        gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls");
+//        gci.setCsvPath("/home/ernesto/getjobid.csv");
+//        gci.setReportPath("/home/ernesto/NetBeansProjects/CardLayoutDemo/Reports/");
+//        gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
         //****
         gci.loadExcelTable(gci.getExcelPath());
-    }//GEN-LAST:event_LandingPanelOkActionPerformed
+    }
 
     private void csvPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvPanelButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, new String[] {"csv"});
         gci.setCsvPath(filePathAndName[0]);
         gci.setTextTextfield(csvPanelTextfield, filePathAndName[1]);
-    }//GEN-LAST:event_csvPanelButtonActionPerformed
-
+    }
     private void reportPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportPanelButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, null);
         gci.setReportPath(filePathAndName[0]);
         gci.setTextTextfield(reportPanelTextfield, filePathAndName[1]);
-    }//GEN-LAST:event_reportPanelButtonActionPerformed
+    }
 
     private void excelPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelPanelButtonActionPerformed
-
         JFileChooser fileChooser = new JFileChooser();
-        //        String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, new String[] {"xls", "xlsx"});
-        //        gci.setExcelPath(filePathAndName[0]);
-        //        gci.setTextTextfield(excelPanelTextfield, filePathAndName[1]);
-    }//GEN-LAST:event_excelPanelButtonActionPerformed
+        String[] filePathAndName = fileUtils.getFilePathAndName(fileChooser, new String[] {"xls", "xlsx"});
+        gci.setExcelPath(filePathAndName[0]);
+        gci.setTextTextfield(excelPanelTextfield, filePathAndName[1]);
+    }
 
 
 
