@@ -59,7 +59,7 @@ public class WordDocument {
         plantilla = WordprocessingMLPackage.createPackage();
 
 // The image to add
-        File uibLogo = new File(System.getProperty("user.dir") + "/imagenes/logoUib.png");
+        File uibLogo = new File(System.getProperty("user.dir") + "/NetBeansProjects/CardLayoutDemo/imagenes/logoUib.png");
         addImage(uibLogo);
 
         int currentYear = Year.now().getValue();
