@@ -6,10 +6,11 @@
 package layout;
 
 import Utils.FileUtils;
+import Utils.PanelDataException;
+
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -276,17 +277,25 @@ public class Landing extends javax.swing.JPanel {
 
     
     private void LandingPanelOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LandingPanelOkActionPerformed
-
-        JPanel cards = (JPanel) getParent();
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.next(cards);
-        //*** solo para las pruebas y no tener que estar poniendo la url del excel cada vez
-//        gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls");
-//        gci.setCsvPath("/home/ernesto/getjobid.csv");
-//        gci.setReportPath("/home/ernesto/NetBeansProjects/CardLayoutDemo/Reports/");
-//        gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
-        //****
-        gci.loadExcelTable(gci.getExcelPath());
+        try {
+            if (!excelPanelTextfield.getText().isEmpty() && !csvPanelTextfield.getText().isEmpty() && !reportPanelTextfield.getText().isEmpty()) {
+                JPanel cards = (JPanel) getParent();
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.next(cards);
+                //*** solo para las pruebas y no tener que estar poniendo la url del excel cada vez
+                //        gci.setExcelPath("/home/ernesto/ENQ_151_1455.xls");
+                //        gci.setCsvPath("/home/ernesto/getjobid.csv");
+                //        gci.setReportPath("/home/ernesto/NetBeansProjects/CardLayoutDemo/Reports/");
+                //        gci.setTextTextfield(excelPanelTextfield, "ENQ_151_1455.xls");
+                //****
+                gci.loadExcelTable(gci.getExcelPath());
+            } else {
+                throw new PanelDataException("Falta ingresar alguna de las rutas necesarias");
+            }
+        } catch (PanelDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Dialog",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void csvPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvPanelButtonActionPerformed

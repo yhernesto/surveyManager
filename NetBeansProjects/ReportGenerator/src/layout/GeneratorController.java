@@ -99,12 +99,12 @@ public class GeneratorController implements GeneratorControllerInterface{
     
     public void questions_buttonAdd(Table questionTable,ModelTable questionTableModel){
 //        questionTableModel.addRowTable(newRow);
-        questionTable.updateTable(questionTableModel);
+//        questionTable.updateTable(questionTableModel);
     }
 
     public void question_buttonRemove(Table questionTable, ModelTable questionTableModel){
         questionTableModel.removeLastRowTable();
-        questionTable.updateTable(questionTableModel);
+//        questionTable.updateTable(questionTableModel);
     };
 
     

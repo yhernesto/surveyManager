@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NetBeansProjects/CardLayoutDemo/CardLayoutDemo.iml" filepath="$PROJECT_DIR$/NetBeansProjects/CardLayoutDemo/CardLayoutDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NetBeansProjects/ReportGenerator/ReportGenerator.iml" filepath="$PROJECT_DIR$/NetBeansProjects/ReportGenerator/ReportGenerator.iml" />
     </modules>
   </component>
 </project>

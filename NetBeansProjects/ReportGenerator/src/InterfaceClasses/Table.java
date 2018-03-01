@@ -14,7 +14,8 @@ public class Table extends JPanel{
     ModelTable logicTable;
 
     public Table(ModelTable logicTable){
-        this.logicTable = new ModelTable();
+//        this.logicTable = new ModelTable();
+        logicTable.addListeners(this);
         updateTable(logicTable);
     };
 
@@ -40,9 +41,9 @@ public class Table extends JPanel{
         this.removeAll();
 
         if(logicTable != null){
-            this.logicTable = logicTable;
+//            this.logicTable = logicTable;
             if(logicTable.rows != null || !logicTable.getRows().isEmpty()){
-                for(RowTable row : this.logicTable.getRows()){
+                for(RowTable row : logicTable.getRows()){
                     addComponents(row);
                 }    
             }

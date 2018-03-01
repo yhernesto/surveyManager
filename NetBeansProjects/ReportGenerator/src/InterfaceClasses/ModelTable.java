@@ -16,6 +16,8 @@ public class ModelTable {
     List<RowTable> rows = new ArrayList<RowTable>();
     int maxRows;
     boolean mustNotBeEmpty = false;
+
+    List<Table> listeners = new ArrayList<Table>();
     
     
     public ModelTable(){};
@@ -50,9 +52,10 @@ public class ModelTable {
         if(this.rows.size() < maxRows){
             rows.add(row);
         }
+        notifyListeners();
     }
-   
-    
+
+
     public void removeRowTable(int i){
         if(i < rows.size()){
             if(mustNotBeEmpty){
@@ -63,6 +66,7 @@ public class ModelTable {
                 rows.remove(i);
             }
         }
+        notifyListeners();
     }
         
     
@@ -76,6 +80,7 @@ public class ModelTable {
                 rows.remove(rows.size()-1);
             }
         }
+        notifyListeners();
     }
 
 
@@ -93,6 +98,16 @@ public class ModelTable {
     
     public void setEmpty(){
         rows.clear();
+    }
+
+    public void addListeners(Table table){
+        this.listeners.add(table);
+    }
+
+    private void notifyListeners() {
+        for(Table table : listeners){
+            table.updateTable(this);
+        }
     }
 
 }

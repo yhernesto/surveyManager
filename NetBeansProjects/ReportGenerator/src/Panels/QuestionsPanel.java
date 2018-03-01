@@ -164,7 +164,7 @@ public class QuestionsPanel extends javax.swing.JPanel {
     public  Table questionTable;
     public  ModelTable questionTableModel;
     public GeneratorControllerInterface gci;
-    private final int excelTable_MAX_ROWS_TO_SHOW = 10;
+    private final int excelTable_MAX_ROWS_TO_SHOW = 80;
     private final int excelTable_MAX_COLUMNS_TO_SHOW = 18;
     public final int QUESTIONS_TEXTFIELD_WIDTH = 20; 
     public final int ANSWERS_TEXTFIELD_WIDTH = 3;

@@ -72,21 +72,7 @@ public class FileUtils {
         } catch (IOException ex) {
             Logger.getLogger(Csv.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        /* String text = "Hello world";
-        BufferedWriter output = null;
-        try {
-            File file = new File("example.txt");
-            output = new BufferedWriter(new FileWriter(file));
-            output.write(text);
-        } catch ( IOException e ) {
-            e.printStackTrace();
-        } finally {
-          if ( output != null ) {
-            output.close();
-          }
-        }
-        */
+
     }
     
 }

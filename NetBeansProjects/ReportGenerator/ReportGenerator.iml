@@ -91,7 +91,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/slf4j-simple-1.7.25.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/slf4j-api-1.7.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
