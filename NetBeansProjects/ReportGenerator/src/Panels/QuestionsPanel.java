@@ -86,11 +86,11 @@ public class QuestionsPanel extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        questionTableLeftHeader.setText(" ");
+        questionTableLeftHeader.setText("Pregunta:");
 
         questionTableCenterHeader.setText(" ");
 
-        questionTableRightHeader.setText(" ");
+        questionTableRightHeader.setText("Ubicación:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

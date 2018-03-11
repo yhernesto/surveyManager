@@ -29,16 +29,15 @@ public class ProffesorQuestionsPanel extends QuestionsPanel {
     
     public void myInitComponents(){
         setCategory(QuestionType.category.PROFFESOR);
-        questionTableLeftHeader.setText("Pregunta: ");
-        questionTableRightHeader.setText("Profesores: ");
+        questionTableLeftHeader.setText("Pregunta");
+        questionTableRightHeader.setText("Ubicación");
         questionsTableAddRow(questionTableModel.getTotalRows(), gci.getProffesors());
         questionTableInit(questionTableModel);
     }
     
     
     public void questionsTableAddRow(int tableSize, Questions profesores){
-        System.out.println("tamaño de profesores: " + profesores.getQuestions().size());
-        JLabel  questionNumber  = new JLabel(Integer.toString(tableSize + 1) + ":");
+        JLabel  questionNumber  = new JLabel(Integer.toString((tableSize/profesores.size())) + 1 + ":");
         JTextField question     = new JTextField(QUESTIONS_TEXTFIELD_WIDTH);
         JTextField answerColumn = new JTextField(ANSWERS_TEXTFIELD_WIDTH);
         JLabel emptySpace   = new JLabel("  ");
